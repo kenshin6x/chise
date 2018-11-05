@@ -26,9 +26,9 @@
 	<fieldset class="module aligned">
 		<div class="form-row">
 			<div>
-				<label>{% trans 'Date Started' %}: </label> <div>{% if entry.date_started %}{{entry.date_started}}{% else %}-{% endif %}</div>
+				<label>{% trans 'Date Started' %}: </label> <div id="date-started">{% if entry.date_started %}{{entry.date_started}}{% else %}-{% endif %}</div>
 				<hr style="margin: 25px 0">
-				<label>{% trans 'Date Finished' %}: </label> <div>{% if entry.date_finished %}{{entry.date_finished}}{% else %}-{% endif %}</div>
+				<label>{% trans 'Date Finished' %}: </label> <div id="date-finished">{% if entry.date_finished %}{{entry.date_finished}}{% else %}-{% endif %}</div>
 			</div>
 		</div>
 	</fieldset>
@@ -71,8 +71,13 @@
 		</tbody>
 	</table>
 
-	<div id="chart-container">
-		<canvas id="myChart"></canvas>
+	<hr style="margin: 25px 0">
+
+	<div class="chart-container col-2">
+		<canvas id="module-chart"></canvas>
+	</div>
+	<div class="chart-container col-2">
+		<canvas id="script-chart"></canvas>
 	</div>
 </div>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

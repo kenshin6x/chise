@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=Bangers');
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
 
+/*Containers*/
 .dashboard #content {
     width: auto !important; 
 }
@@ -172,7 +173,7 @@ input[type="submit"].default {
     font-size: 15px;
     font-weight: bold;
     color: #ffffff;
-    text-shadow: 1px 1px 5px #000000;
+    text-shadow: 1px 1px 1px #000000;
 }
 
 .td-success {
@@ -189,4 +190,16 @@ input[type="submit"].default {
 
 #checkpoints-table > tbody > tr:nth-child(even) {
     background: #f9f9f9;
+}
+
+/*Charts*/
+#chart-container {
+    /*width: 100%;*/
+    display: inline-block;
+}
+
+/*Grids*/
+col-2 {
+    width: 49%;
+    float: left;
 }
