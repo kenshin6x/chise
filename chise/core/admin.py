@@ -35,8 +35,13 @@ class GroupAdmin(admin.ModelAdmin):
 
 @admin.register(Variable)
 class VariableAdmin(admin.ModelAdmin):
-    list_display = ('description', 'name', 'value', 'request_method',)
-    list_display_links = ('description', 'name', 'value',)
+    list_display = ('name', 
+                'value', 
+                'request_method', 
+                'description',)
+    list_display_links = ('name', 
+                    'value', 
+                    'method',)
     search_fields = ('description',
                     'name',
                     'value',

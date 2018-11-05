@@ -136,13 +136,14 @@ class ExecutionAdmin(admin.ModelAdmin):
     def reexecute_view(self, request, object_pk, *args, **kwargs):
         object = Execution.objects.get(pk=object_pk)
 
-        if object.is_finished():
-            object.checkpoints.all().delete()
-            object.date_started = None
-            object.date_finished = None
-            object.save()
+        if request.user.has_perm('execution.can_reexecute'):
+            if object.is_finished():
+                object.checkpoints.all().delete()
+                object.date_started = None
+                object.date_finished = None
+                object.save()
 
-            execution_task.delay(object.pk)
+                execution_task.delay(object.pk)
 
         return redirect('admin:execution-execute', object_pk=object.pk)
 
