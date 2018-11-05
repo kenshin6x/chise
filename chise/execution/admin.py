@@ -9,7 +9,7 @@ from django.conf.urls import url
 from django.urls import reverse, resolve
 from django.http import JsonResponse
 from django.core import serializers
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from chise.execution.models import *
 from chise.core import models as core_models
 from chise.core.tasks import execution_task
@@ -100,6 +100,10 @@ class ExecutionAdmin(admin.ModelAdmin):
                     self.admin_site.admin_view(self.execute_view),
                     name='execution-execute',),
 
+                url(r'^(?P<object_pk>.+)/reexecute/$',
+                    self.admin_site.admin_view(self.reexecute_view),
+                    name='execution-reexecute',),
+
                 url(r'^(?P<object_pk>.+)/checkpoints/$',
                     self.admin_site.admin_view(self.checkpoints_view),
                     name='execution-checkpoints',),
@@ -117,13 +121,26 @@ class ExecutionAdmin(admin.ModelAdmin):
             **self.admin_site.each_context(request),
             'opts': self.model._meta,
             'app_label': self.model._meta.app_label,
-            'title': '%s: #%s' % (_('Execute'), object.pk),
+            'title': '%s: #%s' % (_('Execution'), object.pk),
             'entry': object,
             'object_id': object.pk,
         }
 
         return render(request, 'admin/execution/execute_action.html',
                                 context)
+
+    def reexecute_view(self, request, object_pk, *args, **kwargs):
+        object = Execution.objects.get(pk=object_pk)
+
+        if object.is_finished():
+            object.checkpoints.all().delete()
+            object.date_started = None
+            object.date_finished = None
+            object.save()
+
+            execution_task.delay(object.pk)
+
+        return redirect('admin:execution-execute', object_pk=object.pk)
 
     def checkpoints_view(self, request, object_pk, *args, **kwargs):
         object = Execution.objects.get(pk=object_pk)
