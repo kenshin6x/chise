@@ -99,6 +99,10 @@ class ExecutionAdmin(admin.ModelAdmin):
     def get_urls(self):
         urls = super().get_urls()
         custom_urls = [
+                url(r'^(?P<object_pk>.+)/print/$',
+                    self.admin_site.admin_view(self.print_view),
+                    name='execution-print',),
+
                 url(r'^(?P<object_pk>.+)/execute/$',
                     self.admin_site.admin_view(self.execute_view),
                     name='execution-execute',),
@@ -113,6 +117,12 @@ class ExecutionAdmin(admin.ModelAdmin):
         ]
 
         return custom_urls + urls
+
+    def print_view(self, request, object_pk, *args, **kwargs):
+        object = Execution.objects.get(pk=object_pk)
+       
+        return render(request, 'admin/execution/execute_action.html',
+                                context)
 
     def execute_view(self, request, object_pk, *args, **kwargs):
         object = Execution.objects.get(pk=object_pk)
