@@ -163,7 +163,8 @@ class ModuleAdmin(admin.ModelAdmin):
         form = super().get_form(request, obj, **kwargs)
 
         if request.GET.get('site_id'):
-            form.base_fields['group'].queryset = Group.objects.filter(pk=request.GET.get('site_id'))
+            site = Site.objects.get(pk=request.GET.get('site_id'))
+            form.base_fields['group'].queryset = Group.objects.filter(pk=site.group.pk)
 
         return form
 
