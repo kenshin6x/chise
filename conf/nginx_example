@@ -5,6 +5,16 @@ server {
     error_log   /var/log/nginx/chise-error.log;
     client_max_body_size 75M;
 
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/var/www/html/chise/chise.sock;
+    }
+
+    location /vnc {
+        include proxy_params;
+        proxy_pass http://127.0.0.1:6080/;
+    }
+
     location /static {
         alias /var/www/html/chise/static;
     }
@@ -13,9 +23,7 @@ server {
         alias /var/www/html/chise/media;
     }
 
-    location / {
-    #proxy_set_header Host $host;
-        include proxy_params;
-        proxy_pass http://unix:/var/www/html/chise/chise.sock;
+    location /app {
+        alias /var/www/html/chise/novnc/app;
     }
 }

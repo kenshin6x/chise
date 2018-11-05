@@ -36,6 +36,7 @@
                 <strong>{% firstof user.get_short_name user.get_username %}</strong>.
             {% endblock %}
             {% block userlinks %}
+                <a href="{{ request.SERVER_NAME }}/vnc/vnc_lite.html?port=5906"  onclick="window.open(this.href, 'windowName', 'width=1024, height=768, left=24, top=24, scrollbars, resizable'); return false;" target="_blank">{% trans 'VNC' %}</a> /
                 {% if site_url %}
                     <a href="{{ site_url }}">{% trans 'View site' %}</a> /
                 {% endif %}

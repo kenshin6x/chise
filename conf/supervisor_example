@@ -39,7 +39,7 @@ stderr_logfile=/var/www/html/chise/log/xvfb.log
 redirect_stderr=True
 
 [program:chise-vnc]
-command=/usr/bin/x11vnc -forever -display :99 -bg -nopw -listen localhost -xkb -rfbport 5906
+command=/usr/bin/x11vnc -shared -forever -display :99 -bg -nopw -xkb -rfbport 5906
 user=root
 group=root
 autostart=true
@@ -50,8 +50,9 @@ stderr_logfile=/var/www/html/chise/log/vnc.log
 redirect_stderr=True
 
 [program:chise-novnc]
-command=/var/www/html/chise/novnc/utils/launch.sh --vnc localhost:5906 --web /var/www/html/chise/novnc/
+command=sh /var/www/html/chise/novnc/utils/launch.sh --vnc localhost:5906 --web /var/www/html/chise/novnc/
 directory=/var/www/html/chise/novnc
+environment=PATH="/var/www/html/chise/env/bin:%(ENV_PATH)s"
 user=root
 group=root
 stdout_logfile=/var/www/html/chise/log/novnc.log
