@@ -68,7 +68,10 @@ class ExecutionAdmin(admin.ModelAdmin):
 
     def get_execution_actions(self, object):
         html = ''
-        execute_button_name = _('Execute')
+        execute_button_name = None
+
+        if object.is_started() is False:
+            execute_button_name = _('Execute')
 
         if object.is_running():
             execute_button_name = _('Running')
@@ -114,8 +117,9 @@ class ExecutionAdmin(admin.ModelAdmin):
     def execute_view(self, request, object_pk, *args, **kwargs):
         object = Execution.objects.get(pk=object_pk)
 
-        if object.is_started() is False:
-            execution_task.delay(object.pk)
+        if request.user.has_perm('execution.can_execute'):
+            if object.is_started() is False:
+                execution_task.delay(object.pk)
 
         context = {
             **self.admin_site.each_context(request),
@@ -162,6 +166,7 @@ class ExecutionAdmin(admin.ModelAdmin):
 
         response_data = {
             'id': object.pk,
+            'status': object.status(),
             'date_started': object.date_started,
             'date_finished': object.date_finished,
             'checkpoints' : checkpoints

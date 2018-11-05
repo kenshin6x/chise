@@ -101,8 +101,8 @@ class Execution(models.Model):
         verbose_name_plural = _('Execution')
         ordering = ['-date_created', 'site', 'module']
         permissions = (
-                ('can_execute', _('Can Execute')),
-                ('can_reexecute', _('Can Re-Execute')),
+                ('can_execute', _('Can execute execution')),
+                ('can_reexecute', _('Can re-execute execution')),
         )
 
     def __str__(self):
@@ -129,6 +129,14 @@ class Execution(models.Model):
             return True
         else:
             return False
+
+    def status(self):
+        if self.is_finished():
+            return _('Finished')
+        elif self.is_running():
+            return _('Running')
+        else:
+            return _('Waiting')
 
 
 

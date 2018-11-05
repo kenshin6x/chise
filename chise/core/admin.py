@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from chise import settings
+from django.contrib.auth.models import Permission
 from django.utils.translation import ugettext_lazy as _
 from django.contrib import admin
 from django.forms import TextInput, Textarea
@@ -13,6 +14,9 @@ from django.conf.urls import url
 from django.urls import reverse, resolve
 from chise.core.models import *
 
+@admin.register(Permission)
+class PermissionAdmin(admin.ModelAdmin):
+    pass
 
 @admin.register(Group)
 class GroupAdmin(admin.ModelAdmin):
