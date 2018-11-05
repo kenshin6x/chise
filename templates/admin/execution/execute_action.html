@@ -13,7 +13,23 @@
 {% endif %}{% endblock %}
 {% block content %}
 <div id="content-main">
-	<table class="result_list" width="100%">
+	<ul class="object-tools">
+		<li>
+    		<a href="" class="historylink">Re-execute</a>
+		</li>    
+	</ul>
+
+	<fieldset class="module aligned">
+		<div class="form-row">
+			<div>
+				<label>{% trans 'Date Execution Started' %}: </label> <div>{% if entry.date_started %}{{entry.date_started}}{% else %}-{% endif %}</div>
+				<hr style="margin: 25px 0">
+				<label>{% trans 'Date Execution Finished' %}: </label> <div>{% if entry.date_finished %}{{entry.date_finished}}{% else %}-{% endif %}</div>
+			</div>
+		</div>
+	</fieldset>
+	
+	<!-- <table class="result_list" width="100%">
 		<thead>
 			<th scope="col">{% trans 'Date Execution Started' %}</th>
 			<th scope="col">{% trans 'Date Execution Finished' %}</th>
@@ -24,11 +40,11 @@
 				<td>{% if entry.date_finished %}{{entry.date_finished}}{% else %}-{% endif %}</td>
 			</tr>
 		</tbody>
-	</table>
+	</table> -->
 
 	<hr style="margin: 25px 0">
 
-	<table class="result_list" width="100%">
+	<table id="checkpoints-table" class="result_list" width="100%">
 		<thead>
 			<th scope="col">{% trans 'Reference' %}</th>
 			<th scope="col">{% trans 'Object' %}</th>
@@ -39,10 +55,10 @@
 		</thead>
 		<tbody>
 			{% for checkpoint in entry.checkpoints.all|dictsort:"pk" %}
-				<tr class="{% cycle 'row1' 'row2' %}" style="background-color: {% if checkpoint.status == 1 %} #69F0AE {% else %} #FF8A80; {% endif %}">
+				<tr>
 					<td>{{checkpoint.get_reference_display}}</td>
 					<td>{{checkpoint.get_object_display}}</td>
-					<td>{{checkpoint.get_status_display}}</td>
+					<td class="{% if checkpoint.status == 1 %} td-success {% else %} td-fail {% endif %}">{{checkpoint.get_status_display}}</td>
 					<td>{{checkpoint.name}}</td>
 					<td>{% if checkpoint.description %}{{checkpoint.description}}{% else %}-{% endif %}</td>
 					<td>{{checkpoint.date_checkpoint}}</td>
@@ -50,9 +66,16 @@
 			{% endfor %}
 		</tbody>
 	</table>
+
+	<div id="chart-container">
+		<canvas id="myChart"></canvas>
+	</div>
 </div>
-<!-- <script type="text/javascript">
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="{% static 'js/Chart.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/execution/admin-script.js' %}"></script>
+<script type="text/javascript">
 	var execute_runtime = {% if entry.date_finished %}false{% else %}true{% endif %};
-	load_checkpoints(execute_runtime);
-</script> -->
+	runtime_loop(execute_runtime);
+</script>
 {% endblock %}
