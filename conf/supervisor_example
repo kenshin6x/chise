@@ -1,0 +1,63 @@
+[program:chise-gunicorn]
+command=/var/www/html/chise/env/bin/gunicorn --reload --access-logfile - --workers 3 --bind unix:/var/www/html/chise/chise.sock chise.wsgi:application
+environment=DJANGO_SETTINGS_MODULE="chise.settings",DISPLAY=:99
+directory=/var/www/html/chise
+user=root
+group=root
+autostart=true
+autorestart=true
+killasgroup=true
+stdout_logfile=/var/www/html/chise/log/gunicorn.log
+stderr_logfile=/var/www/html/chise/log/gunicorn.log
+redirect_stderr=True
+
+[program:chise-celery]
+command=/var/www/html/chise/env/bin/celery worker -A chise --loglevel=INFO
+environment=DISPLAY=:99
+directory=/var/www/html/chise
+user=root
+group=root
+numprocs=1
+stdout_logfile=/var/www/html/chise/log/celery.log
+stderr_logfile=/var/www/html/chise/log/celery.log
+autostart=true
+autorestart=true
+startsecs=10
+stopwaitsecs = 600
+stopasgroup=true
+priority=1000
+
+[program:chise-xvfb]
+command=/usr/bin/Xvfb :99 -screen 0 1024x768x16
+user=root
+group=root
+autostart=true
+autorestart=true
+killasgroup=true
+stdout_logfile=/var/www/html/chise/log/xvfb.log
+stderr_logfile=/var/www/html/chise/log/xvfb.log
+redirect_stderr=True
+
+[program:chise-vnc]
+command=/usr/bin/x11vnc -forever -display :99 -bg -nopw -listen localhost -xkb -rfbport 5906
+user=root
+group=root
+autostart=true
+autorestart=true
+killasgroup=true
+stdout_logfile=/var/www/html/chise/log/vnc.log
+stderr_logfile=/var/www/html/chise/log/vnc.log
+redirect_stderr=True
+
+[program:chise-novnc]
+command=/var/www/html/chise/novnc/utils/launch.sh --vnc localhost:5906 --web /var/www/html/chise/novnc/
+directory=/var/www/html/chise/novnc
+user=root
+group=root
+stdout_logfile=/var/www/html/chise/log/novnc.log
+stderr_logfile=/var/www/html/chise/log/novnc.log
+autostart=true
+autorestart=true
+startsecs=10
+stopwaitsecs = 600
+stopasgroup=true

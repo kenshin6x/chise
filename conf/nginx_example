@@ -1,0 +1,21 @@
+server {
+    listen      92;
+    charset     utf-8;
+    access_log  /var/log/nginx/chise-access.log;
+    error_log   /var/log/nginx/chise-error.log;
+    client_max_body_size 75M;
+
+    location /static {
+        alias /var/www/html/chise/static;
+    }
+
+    location /media {
+        alias /var/www/html/chise/media;
+    }
+
+    location / {
+    #proxy_set_header Host $host;
+        include proxy_params;
+        proxy_pass http://unix:/var/www/html/chise/chise.sock;
+    }
+}

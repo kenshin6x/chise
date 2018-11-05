@@ -1,0 +1,58 @@
+
+{% extends "admin/base_site.html" %}
+{% load i18n admin_static admin_modify %}
+
+{% block bodyclass %}{{ opts.app_label }}-{{ opts.object_name.lower }} change-form{% endblock %}
+{% block breadcrumbs %}{% if not is_popup %}
+<div class="breadcrumbs">  
+    <a href="../../../../">{% trans "Home" %}</a> ›
+    <a href="../../../">{{ opts.app_label|capfirst|escape }}</a> ›
+    <a href="../../">{{ opts.verbose_name_plural|capfirst }}</a> ›
+    <!-- <a href="../">{{ opts.verbose_name|capfirst }} #{{ entry.pk }}</a> › -->
+    {% trans 'Execute' %} #{{ entry.pk }}</div>
+{% endif %}{% endblock %}
+{% block content %}
+<div id="content-main">
+	<table class="result_list" width="100%">
+		<thead>
+			<th scope="col">{% trans 'Date Execution Started' %}</th>
+			<th scope="col">{% trans 'Date Execution Finished' %}</th>
+		</thead>
+		<tbody>
+			<tr>
+				<td>{% if entry.date_started %}{{entry.date_started}}{% else %}-{% endif %}</td>
+				<td>{% if entry.date_finished %}{{entry.date_finished}}{% else %}-{% endif %}</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<hr style="margin: 25px 0">
+
+	<table class="result_list" width="100%">
+		<thead>
+			<th scope="col">{% trans 'Reference' %}</th>
+			<th scope="col">{% trans 'Object' %}</th>
+			<th scope="col">{% trans 'Status' %}</th>
+			<th scope="col">{% trans 'Name' %}</th>
+			<th scope="col">{% trans 'Description' %}</th>
+			<th scope="col">{% trans 'Date Checkpoint' %}</th>
+		</thead>
+		<tbody>
+			{% for checkpoint in entry.checkpoints.all|dictsort:"pk" %}
+				<tr class="{% cycle 'row1' 'row2' %}" style="background-color: {% if checkpoint.status == 1 %} #69F0AE {% else %} #FF8A80; {% endif %}">
+					<td>{{checkpoint.get_reference_display}}</td>
+					<td>{{checkpoint.get_object_display}}</td>
+					<td>{{checkpoint.get_status_display}}</td>
+					<td>{{checkpoint.name}}</td>
+					<td>{% if checkpoint.description %}{{checkpoint.description}}{% else %}-{% endif %}</td>
+					<td>{{checkpoint.date_checkpoint}}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+<!-- <script type="text/javascript">
+	var execute_runtime = {% if entry.date_finished %}false{% else %}true{% endif %};
+	load_checkpoints(execute_runtime);
+</script> -->
+{% endblock %}
