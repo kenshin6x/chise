@@ -97,17 +97,17 @@ class ExecutionAdmin(admin.ModelAdmin):
         urls = super().get_urls()
         custom_urls = [
                 url(r'^(?P<object_pk>.+)/execute/$',
-                    self.admin_site.admin_view(self.process_execute),
+                    self.admin_site.admin_view(self.execute_view),
                     name='execution-execute',),
 
                 url(r'^(?P<object_pk>.+)/checkpoints/$',
-                    self.admin_site.admin_view(self.process_checkpoints),
+                    self.admin_site.admin_view(self.checkpoints_view),
                     name='execution-checkpoints',),
         ]
 
         return custom_urls + urls
 
-    def process_execute(self, request, object_pk, *args, **kwargs):
+    def execute_view(self, request, object_pk, *args, **kwargs):
         object = Execution.objects.get(pk=object_pk)
 
         if object.is_started() is False:
@@ -125,7 +125,7 @@ class ExecutionAdmin(admin.ModelAdmin):
         return render(request, 'admin/execution/execute_action.html',
                                 context)
 
-    def process_checkpoints(self, request, object_pk, *args, **kwargs):
+    def checkpoints_view(self, request, object_pk, *args, **kwargs):
         object = Execution.objects.get(pk=object_pk)
         checkpoints = []
 

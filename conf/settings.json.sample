@@ -1,0 +1,26 @@
+{
+    "project": {
+        "name": "chise",
+        "debug": true,
+        "language": "en",
+        "timezone": "UTC"
+    },
+    "bin": {
+        "firefox": "/usr/bin/firefox",
+        "geckodriver": "bin/geckodriver"
+    },
+    "etc": {
+        "firefox_profile": ""
+    },
+    "database": {
+        "name": "chise",
+        "user": "postgres",
+        "password": "postgres",
+        "port": "5432",
+        "host": "localhost",
+        "prefix": "ct_"
+    },
+    "celery": {
+        "broker_url": "amqp://localhost"
+    }
+}
