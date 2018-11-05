@@ -1,6 +1,10 @@
 /*Fonts*/
 @import url('https://fonts.googleapis.com/css?family=Bangers');
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+@import url('https://fonts.googleapis.com/css?family=Merriweather');
+
+.login #header h1 a {
+    color: #f5dd5d !important;
+}
 
 .dashboard #content {
     width: auto !important; 
@@ -45,8 +49,8 @@
     border-bottom-color: #ffffff !important;
 }
 
-#container {
-    font-family: 'Source Sans Pro' !important ;
+#content, body, td, th, input, textarea, select, .form-row p, form .button {
+    font-family: 'Merriweather' !important ;
 }
 
 #content-main > div[class^="app"] {
