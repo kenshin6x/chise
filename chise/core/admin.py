@@ -111,7 +111,6 @@ class ModuleAdmin(admin.ModelAdmin):
                     'variables__value',
                     'description',)
     list_filter = ('group',)
-    # inlines = (ScriptsInline, )
     filter_horizontal = ('variables', 'scripts',)
     fieldsets = (
             ('', {'fields' : ('group',
@@ -130,6 +129,15 @@ class ModuleAdmin(admin.ModelAdmin):
         return mark_safe('</br>'.join([o.name for o in object.scripts.all()]))
 
     get_scripts.short_description = _('Scripts')
+
+    def get_form(self, request, obj=None, **kwargs):
+        form = super().get_form(request, obj, **kwargs)
+
+        if request.GET.get('site_id'):
+            site = Site.objects.get(pk=request.GET.get('site_id'))
+            form.base_fields['group'].queryset = Group.objects.filter(pk=site.group.pk)
+
+        return form
 
     def get_urls(self):
         urls = super().get_urls()
@@ -158,15 +166,6 @@ class ModuleAdmin(admin.ModelAdmin):
             })
 
         return JsonResponse(response_data, safe=False)
-
-    def get_form(self, request, obj=None, **kwargs):
-        form = super().get_form(request, obj, **kwargs)
-
-        if request.GET.get('site_id'):
-            site = Site.objects.get(pk=request.GET.get('site_id'))
-            form.base_fields['group'].queryset = Group.objects.filter(pk=site.group.pk)
-
-        return form
 
 
 @admin.register(Site)

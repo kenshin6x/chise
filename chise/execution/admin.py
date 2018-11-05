@@ -11,6 +11,7 @@ from django.http import JsonResponse
 from django.core import serializers
 from django.shortcuts import render
 from chise.execution.models import *
+from chise.core import models as core_models
 from chise.core.tasks import execution_task
 
 @admin.register(Keyword)
@@ -84,8 +85,13 @@ class ExecutionAdmin(admin.ModelAdmin):
     get_keywords.short_description = _('Keywords')
     get_execution_actions.short_description = _('Actions')
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def get_form(self, request, obj=None, **kwargs):
+        form = super().get_form(request, obj, **kwargs)
+
+        if obj is None:
+            form.base_fields['modules'].queryset = core_models.Module.objects.none()
+
+        return form
 
     def save_model(self, request, obj, form, change):
         obj.user_created = request.user
