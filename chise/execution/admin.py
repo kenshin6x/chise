@@ -153,4 +153,5 @@ class ExecutionAdmin(admin.ModelAdmin):
     class Media:
         js = (
             settings.STATIC_URL  + 'js/execution/execution-form-events.js',
+            settings.STATIC_URL  + 'js/execution/admin-script.js',
         )

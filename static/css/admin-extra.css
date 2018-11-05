@@ -131,7 +131,17 @@ select {
     background-color: #ffffff !important;
 }
 
-/*Botões*/
+.aligned label {
+    display: block;
+    padding: 4px 10px 0 0;
+    float: left;
+    width: 160px;
+    word-wrap: break-word;
+    line-height: 1;
+    font-weight: bold;
+}
+
+/*Buttons*/
 input[type="submit"] {
     background: #f69001 !important;
     transition: box-shadow 0.5s;
@@ -155,4 +165,28 @@ input[type="submit"].default {
 
 .breadcrumbs {
     font-size: 15px !important;
+}
+
+/*Labels*/
+.td-success, .td-fail {
+    font-size: 15px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 1px 1px 5px #000000;
+}
+
+.td-success {
+    background-color: #12c56e;
+}
+
+.td-fail {
+    background-color: #c51212;
+}
+
+#checkpoints-table > tbody > tr:nth-child(odd) {
+    background: #fff;
+}
+
+#checkpoints-table > tbody > tr:nth-child(even) {
+    background: #f9f9f9;
 }
