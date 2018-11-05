@@ -76,7 +76,7 @@ function render_chart(data, type='pie'){
         var myChart = new Chart(ctx, {
             type: type,
             data: {
-                labels: data[key]['labels'],
+                // labels: data[key]['labels'],
                 datasets: [{
                     data: data[key]['content'],
                     backgroundColor: [
