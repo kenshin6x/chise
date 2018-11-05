@@ -159,15 +159,13 @@ class ModuleAdmin(admin.ModelAdmin):
 
         return JsonResponse(response_data, safe=False)
 
-    # def add_view(self, request, extra_content=None):
-    #     self.inlines = ()
-    #     return super().add_view(request)
+    def get_form(self, request, obj=None, **kwargs):
+        form = super().get_form(request, obj, **kwargs)
 
-    # def change_view(self, request, object_id, extra_content=None):
-    #     self.readonly_fields = ('group',)
-    #     self.inlines = (ScriptsInline, )
+        if request.GET.get('site_id'):
+            form.base_fields['group'].queryset = Group.objects.filter(pk=request.GET.get('site_id'))
 
-    #     return super().change_view(request, object_id)
+        return form
 
 
 @admin.register(Site)
