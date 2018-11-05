@@ -87,10 +87,6 @@ class ExecutionAdmin(admin.ModelAdmin):
 
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)
-
-        if obj is None:
-            form.base_fields['modules'].queryset = core_models.Module.objects.none()
-
         return form
 
     def save_model(self, request, obj, form, change):
