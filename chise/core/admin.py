@@ -41,7 +41,7 @@ class VariableAdmin(admin.ModelAdmin):
                 'description',)
     list_display_links = ('name', 
                     'value', 
-                    'method',)
+                    'request_method',)
     search_fields = ('description',
                     'name',
                     'value',
