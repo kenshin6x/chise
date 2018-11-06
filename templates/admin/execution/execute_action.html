@@ -15,9 +15,10 @@
 <div id="content-main">
 	<ul class="object-tools">
 		<li>
-			{% if perms.execution.can_reexecute %}
-				{% if entry.is_finished %}
-	    			<a href="{% url 'admin:execution-reexecute' entry.pk %}" class="historylink">{% trans 'Re-execute' %}</a>
+			{% if entry.is_finished %}
+				<a href="{% url 'admin:execution-print' entry.pk %}" class="button">{% trans 'Print' %}</a>
+				{% if perms.execution.can_reexecute %}
+	    			&nbsp; <a href="{% url 'admin:execution-reexecute' entry.pk %}" class="historylink">{% trans 'Re-execute' %}</a>
 				{% endif %}
 			{% endif %}
 		</li>    
