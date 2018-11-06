@@ -3,6 +3,10 @@ if (!$) {
     $ = django.jQuery;
 }
 
+$(document).ready(function(){
+    $('#content-main').fadeIn('slow');
+});
+
 var interval = null;
 var last_length = 0;
 
@@ -58,18 +62,25 @@ function load_checkpoints(refresh=true) {
             }
         });
 
+        if (row.reference == 2 && refresh) {
+            clearInterval(interval);
+            window.location.reload();
+        }
+
         last_length = result.checkpoints.length;
         $('#date-started').html(result.date_started);
-        $('#execution-status').html(result.status);
+        $('#execution-status').html(result.status).attr('class', result.status.toLowerCase());
 
         $('#checkpoints-table tbody').html(rows);
 
         render_chart(data);
 
-        if (row.reference == 2 && refresh) {
-            clearInterval(interval);
-            window.location.reload();
+        if (row.reference == 2 && row.status == 1) {
+            $('#execution-status').addClass('td-success');
+        } else if (row.reference == 2 && row.status == 2) {
+            $('#execution-status').addClass('td-fail');
         }
+
     });
 }
 

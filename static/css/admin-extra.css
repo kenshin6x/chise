@@ -89,7 +89,7 @@ tr a {
     color: #401a00;
 }
 
-#content-main > div[class^="app"] tr th a:hover, #result_list a:hover {
+#content-main > div[class^="app"] tr th a:hover {
     border-bottom: 1px solid #401a00;
 }
 
@@ -103,6 +103,21 @@ tr a {
     background-color: #fff5e7 !important;
     border: 1px solid #401a00;
     box-shadow: 1px 2px 5px #616161 !important;
+}
+
+#changelist-filter {
+    background-color: #fff5e7 !important;
+}
+
+#changelist-filter li.selected a {
+    color: #401900 !important;
+}
+
+#changelist-filter a:focus,
+#changelist-filter a:hover,
+#changelist-filter li.selected a:focus,
+#changelist-filter li.selected a:hover {
+    color: #f69005 !important;
 }
 
 /*Formulários*/
@@ -146,6 +161,22 @@ select {
     font-weight: bold;
 }
 
+.form-row input[type='text']:not([name='username']) {
+    width: 80% !important;
+}
+
+.selector-available select option, .selector-chosen select option {
+    padding: 10px;
+}
+
+.selector-available select option:hover, .selector-chosen select option:hover {
+    background-color: #fff5e7;
+    cursor: pointer;
+    border-style: solid;
+    border-color: #783401;
+    border-width: 0.05px 0px;
+}
+
 /*Buttons*/
 input[type="submit"] {
     background: #f69001 !important;
@@ -166,6 +197,7 @@ input[type="submit"].default {
 .object-tools .addlink, .object-tools .historylink {
     background-color: #ef8c03 !important;
     transition: box-shadow 0.5s;
+    margin-left: 10px;
 }
 
 .breadcrumbs {
@@ -180,11 +212,11 @@ input[type="submit"].default {
     text-shadow: 1px 1px 1px #000000;
 }
 
-.td-success, .running {
+.td-success {
     background-color: #12c56e;
 }
 
-.td-fail, .finished {
+.td-fail {
     background-color: #c51212;
 }
 
@@ -206,7 +238,7 @@ input[type="submit"].default {
     padding: 10px;
     font-weight: bold;
     background-repeat: no-repeat;
-    background-size: 7%;
+    background-size: 25px;
     background-position-y: center;
     background-position-x: 15px;
 }
@@ -217,6 +249,7 @@ input[type="submit"].default {
 }
 
 .running {
+    background-color: #126ac5;
     background-image: url('../images/sand-clock-running.svg');
     animation: fade 1s linear infinite;
 }
@@ -226,7 +259,13 @@ input[type="submit"].default {
 }
 
 #execution-status {
-    
+    /*float: right;
+    width: 50%;*/
+    margin-left: 170px;
+}
+
+.chart-container {
+    margin: auto;
 }
 
 @keyframes fade {
@@ -256,8 +295,8 @@ div.row {
     width: 100%;
 }
 
-.inline-grid {
-    display: inline-grid;
+.inline-block {
+    display: inline-block;
 }
 
 .inline-flex {
