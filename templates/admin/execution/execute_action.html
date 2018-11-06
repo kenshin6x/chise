@@ -12,7 +12,7 @@
 {% endif %}{% endblock %}
 {% block content %}
 
-<div id="content-main">
+<div id="content-main" style="display: none;">
 	<ul class="object-tools">
 		<li>
 			{% if entry.is_finished %}
@@ -26,14 +26,14 @@
 
 	<fieldset class="module aligned">
 		<div class="row">
-			<div class="col-4 inline-grid">
+			<div class="col-2 inline-block">
 				<label>{% trans 'Date Started' %}: </label> <div id="date-started">{% if entry.date_started %}{{entry.date_started}}{% else %}-{% endif %}</div>
 				<hr style="margin: 25px 0">
 				<label>{% trans 'Date Finished' %}: </label> <div id="date-finished">{% if entry.date_finished %}{{entry.date_finished}}{% else %}-{% endif %}</div>
 				<hr style="margin: 25px 0">
 				<label>{% trans 'Status' %}: </label> <div id="execution-status" class="{{ entry.status|lower }}">{{ entry.status }}</div>
 			</div>
-			<div class="col-4 inline-flex">
+			<div class="col-2 inline-flex">
 				<div class="chart-container" style="position: relative; height:5vh; width:10vw">
 					<canvas id="module-chart" width="10px" height="10px"></canvas>
 				</div>
