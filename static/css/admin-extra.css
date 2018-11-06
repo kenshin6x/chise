@@ -180,11 +180,11 @@ input[type="submit"].default {
     text-shadow: 1px 1px 1px #000000;
 }
 
-.td-success {
+.td-success, .running {
     background-color: #12c56e;
 }
 
-.td-fail {
+.td-fail, .finished {
     background-color: #c51212;
 }
 
@@ -196,14 +196,70 @@ input[type="submit"].default {
     background: #f9f9f9;
 }
 
-/*Charts*/
-#chart-container {
-    /*width: 100%;*/
-    display: inline-block;
+.waiting, .running, .finished {
+    text-transform: uppercase;
+    font-size: 15px;
+    color: #fff;
+    text-shadow: 1px 1px 1px #000;
+    text-align: center;
+    margin-top: 5px;
+    padding: 10px;
+    font-weight: bold;
+    background-repeat: no-repeat;
+    background-size: 7%;
+    background-position-y: center;
+    background-position-x: 15px;
+}
+
+.waiting {
+    background-color: #ef8c03;
+    background-image: url('../images/sand-clock-waiting.svg');
+}
+
+.running {
+    background-image: url('../images/sand-clock-running.svg');
+    animation: fade 1s linear infinite;
+}
+
+.finished {
+    background-image: url('../images/sand-clock-finished.svg');
+}
+
+#execution-status {
+    
+}
+
+@keyframes fade {
+    0%, 100%{filter:opacity(1)}
+    50%{filter:opacity(.5)}    
+}
+
+@keyframes spin {
+    from{transform:rotate(0deg)}
+    to{transform:rotate(360deg)}    
 }
 
 /*Grids*/
-col-2 {
+.col-2 {
     width: 49%;
     float: left;
+}
+
+.col-4 {
+    width: 24%;
+    float: left;
+}
+
+
+div.row {
+    display: inline-block;
+    width: 100%;
+}
+
+.inline-grid {
+    display: inline-grid;
+}
+
+.inline-flex {
+    display: inline-flex;
 }

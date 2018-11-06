@@ -24,13 +24,21 @@
 	</ul>
 
 	<fieldset class="module aligned">
-		<div class="form-row">
-			<div>
+		<div class="row">
+			<div class="col-4 inline-grid">
 				<label>{% trans 'Date Started' %}: </label> <div id="date-started">{% if entry.date_started %}{{entry.date_started}}{% else %}-{% endif %}</div>
 				<hr style="margin: 25px 0">
 				<label>{% trans 'Date Finished' %}: </label> <div id="date-finished">{% if entry.date_finished %}{{entry.date_finished}}{% else %}-{% endif %}</div>
 				<hr style="margin: 25px 0">
-				<label>{% trans 'Status' %}: </label> <div>?????</div>
+				<label>{% trans 'Status' %}: </label> <div id="execution-status" class="{{ entry.status|lower }}">{{ entry.status }}</div>
+			</div>
+			<div class="col-4 inline-flex">
+				<div class="chart-container" style="position: relative; height:5vh; width:10vw">
+					<canvas id="module-chart" width="10px" height="10px"></canvas>
+				</div>
+				<div class="chart-container" style="position: relative; height:5vh; width:10vw">
+					<canvas id="script-chart" width="10px" height="10px"></canvas>
+				</div>
 			</div>
 		</div>
 	</fieldset>
@@ -47,27 +55,11 @@
 			<th scope="col">{% trans 'Date Checkpoint' %}</th>
 		</thead>
 		<tbody>
-			{% for checkpoint in entry.checkpoints.all|dictsort:"pk" %}
-				<tr>
-					<td class="{% if checkpoint.status == 1 %} td-success {% else %} td-fail {% endif %}">{{checkpoint.get_status_display}}</td>
-					<td>{{checkpoint.get_reference_display}}</td>
-					<td>{{checkpoint.get_object_display}}</td>
-					<td>{{checkpoint.name}}</td>
-					<td>{% if checkpoint.description %}{{checkpoint.description}}{% else %}-{% endif %}</td>
-					<td>{{checkpoint.date_checkpoint}}</td>
-				</tr>
-			{% endfor %}
+			
 		</tbody>
 	</table>
 
 	<hr style="margin: 25px 0">
-
-	<div class="chart-container col-2">
-		<canvas id="module-chart"></canvas>
-	</div>
-	<div class="chart-container col-2">
-		<canvas id="script-chart"></canvas>
-	</div>
 </div>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="{% static 'js/Chart.js' %}"></script>

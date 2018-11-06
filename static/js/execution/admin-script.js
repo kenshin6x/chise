@@ -9,10 +9,12 @@ var last_length = 0;
 function runtime_loop(execute_runtime) {
     if (execute_runtime) {
         interval = setInterval(load_checkpoints, 500);
+    } else {
+        load_checkpoints(false);
     }
 }
 
-function load_checkpoints() {
+function load_checkpoints(refresh=true) {
     $.ajax({
         url: window.location.pathname.replace('execute', 'checkpoints'),
     }).done(function(result){
@@ -30,42 +32,43 @@ function load_checkpoints() {
             },
         };
 
-        if (result.checkpoints.length > last_length) {
-            $(result.checkpoints).each(function(){
-                row = $(this)[0];
-                rows += '<tr>';
-                    rows += '<td>'+ row.reference_display +'</td>';
-                    rows += '<td>'+ row.object_display +'</td>';
-                    rows += '<td class="'+ (row.status == 1 ? 'td-success' : 'td-fail') +'">'+ row.status_display +'</td>';
-                    rows += '<td>'+ row.name +'</td>';
-                    rows += '<td>'+ (row.description == null ? '-' : row.description) +'</td>';
-                    rows += '<td>'+ row.date_checkpoint +'</td>';
-                rows += '</tr>';
-
-                switch(row.object) {
-                    case 1:
-                        // data['module']['labels'].push(row.name);
-                        data['module']['content'][row.status-1]++;
-                        break;
-                    case 2:
-                        // data['script']['labels'].push(row.name);
-                        data['script']['content'][row.status-1]++;
-                }
-            });
-
-            last_length = result.checkpoints.length;
-            $('#date-started').html(result.date_started);
-        } else {
+        if (result.checkpoints.length <= last_length) {
             return false;
         }
+
+        $(result.checkpoints).each(function(){
+            row = $(this)[0];
+            
+            rows += '<tr>';
+                rows += '<td>'+ row.reference_display +'</td>';
+                rows += '<td>'+ row.object_display +'</td>';
+                rows += '<td class="'+ (row.status == 1 ? 'td-success' : 'td-fail') +'">'+ row.status_display +'</td>';
+                rows += '<td>'+ row.name +'</td>';
+                rows += '<td>'+ (row.description == null ? '-' : row.description) +'</td>';
+                rows += '<td>'+ row.date_checkpoint +'</td>';
+            rows += '</tr>';
+
+            switch(row.object) {
+                case 1:
+                    data['module']['content'][row.status-1]++;
+                    break;
+                case 2:
+                    data['script']['content'][row.status-1]++;
+                    break;
+            }
+        });
+
+        last_length = result.checkpoints.length;
+        $('#date-started').html(result.date_started);
+        $('#execution-status').html(result.status);
 
         $('#checkpoints-table tbody').html(rows);
 
         render_chart(data);
 
-        if (row.reference == 2) {
+        if (row.reference == 2 && refresh) {
             clearInterval(interval);
-            $('#date-finished').html(result.date_finished);
+            window.location.reload();
         }
     });
 }
@@ -76,7 +79,7 @@ function render_chart(data, type='pie'){
         var myChart = new Chart(ctx, {
             type: type,
             data: {
-                // labels: data[key]['labels'],
+                labels: data[key]['labels'],
                 datasets: [{
                     data: data[key]['content'],
                     backgroundColor: [
@@ -87,16 +90,14 @@ function render_chart(data, type='pie'){
                 }]
             },
             options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero:true
-                        }
-                    }]
+                legend: {
+                    display: false,
                 },
-                // animation: {
-                //     duration: 0
-                // }
+                title: {
+                    display: true,
+                    text: key.toUpperCase(),
+                },
+                responsive: true,
             }
         });
     }
