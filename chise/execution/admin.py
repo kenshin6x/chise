@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import io
 from chise import settings
 from django.utils.translation import ugettext_lazy as _
 from django.contrib import admin
@@ -7,9 +8,10 @@ from django.core.management import call_command
 from django.utils.safestring import mark_safe
 from django.conf.urls import url
 from django.urls import reverse, resolve
-from django.http import JsonResponse
+from django.http import JsonResponse, FileResponse
 from django.core import serializers
 from django.shortcuts import render, redirect
+from reportlab.pdfgen import canvas
 from chise.execution.models import *
 from chise.core import models as core_models
 from chise.core.tasks import execution_task
@@ -28,7 +30,7 @@ class ExecutionAdmin(admin.ModelAdmin):
                     'user_created',
                     'date_started',
                     'date_finished',
-                    'get_execution_actions',)
+                    'get_action_buttons',)
     list_display_links = ('id',
                         'site',
                         'get_modules',
@@ -66,7 +68,7 @@ class ExecutionAdmin(admin.ModelAdmin):
     def get_keywords(self, object):
         return mark_safe('</br>'.join([str(o) for o in object.keywords.all()]))
 
-    def get_execution_actions(self, object):
+    def get_action_buttons(self, object):
         html = ''
         execute_button_name = None
 
@@ -78,15 +80,19 @@ class ExecutionAdmin(admin.ModelAdmin):
 
         if object.is_finished():
             execute_button_name = _('View')
+            html += '<a class="button" href="%s">%s</a> ' % (reverse('admin:execution-print', 
+                                                        args=[object.pk]), _('Print'))      
 
-        html += '<a class="button" href="%s">%s</a>' % (reverse('admin:execution-execute', args=[object.pk]), execute_button_name)
+        html += '<a class="button" style="" href="%s">%s</a> ' % (reverse('admin:execution-execute', 
+                                                    args=[object.pk]), 
+                                                    execute_button_name)            
 
-        return mark_safe(html)
+        return mark_safe('<div align="center">' + html + '</div>')
 
     get_modules.short_description = _('Modules')
     get_checkpoints.short_description = _('Checkpoints')
     get_keywords.short_description = _('Keywords')
-    get_execution_actions.short_description = _('Actions')
+    get_action_buttons.short_description = _('Action(s)')
 
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)
@@ -120,9 +126,18 @@ class ExecutionAdmin(admin.ModelAdmin):
 
     def print_view(self, request, object_pk, *args, **kwargs):
         object = Execution.objects.get(pk=object_pk)
-       
-        return render(request, 'admin/execution/execute_action.html',
-                                context)
+        buffer = io.BytesIO()
+
+        p = canvas.Canvas(buffer)
+
+        p.drawString(100, 100, "Hello world.")
+
+        p.showPage()
+        p.save()
+
+        return FileResponse(buffer, 
+                            as_attachment=False, 
+                            filename='execution_print.pdf') 
 
     def execute_view(self, request, object_pk, *args, **kwargs):
         object = Execution.objects.get(pk=object_pk)
