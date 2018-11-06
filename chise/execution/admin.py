@@ -8,11 +8,12 @@ from django.core.management import call_command
 from django.utils.safestring import mark_safe
 from django.conf.urls import url
 from django.urls import reverse, resolve
-from django.http import JsonResponse, FileResponse
+from django.http import JsonResponse, FileResponse, HttpResponse
 from django.core import serializers
 from django.shortcuts import render, redirect
 from reportlab.pdfgen import canvas
 from chise.execution.models import *
+from chise.execution.reports.execution import ExecutionReport
 from chise.core import models as core_models
 from chise.core.tasks import execution_task
 
@@ -126,18 +127,12 @@ class ExecutionAdmin(admin.ModelAdmin):
 
     def print_view(self, request, object_pk, *args, **kwargs):
         object = Execution.objects.get(pk=object_pk)
-        buffer = io.BytesIO()
 
-        p = canvas.Canvas(buffer)
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'filename=execution_%s.pdf' % object.pk
+        response.write(ExecutionReport(object).pdf())
 
-        p.drawString(100, 100, "Hello world.")
-
-        p.showPage()
-        p.save()
-
-        return FileResponse(buffer, 
-                            as_attachment=False, 
-                            filename='execution_print.pdf') 
+        return response
 
     def execute_view(self, request, object_pk, *args, **kwargs):
         object = Execution.objects.get(pk=object_pk)
