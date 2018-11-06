@@ -161,7 +161,7 @@ select {
     font-weight: bold;
 }
 
-.form-row input[type='text'] {
+.form-row input[type='text']:not([name='username']) {
     width: 80% !important;
 }
 
