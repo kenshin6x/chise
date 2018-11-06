@@ -67,6 +67,10 @@ MIDDLEWARE = [
     'django.middleware.locale.LocaleMiddleware'
 ]
 
+FILE_UPLOAD_HANDLERS = [
+    'django.core.files.uploadhandler.TemporaryFileUploadHandler',
+]
+
 ROOT_URLCONF = 'chise.urls'
 
 TEMPLATES = [
