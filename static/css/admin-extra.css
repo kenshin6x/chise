@@ -89,17 +89,6 @@ div.breadcrumbs, .module caption, .selector-chosen h2, #changelist-filter h2 {
     background-color: var(--fail-text-color);
 }
 
-.chart-container {
-   height: 5vh; 
-   width: 10vw;
-   margin: auto;
-}
-
-.col-2 {
-    width: 50%;
-    float: left;
-}
-
 .aligned label {
     display: block;
     padding: 4px 10px 0 0;
@@ -115,19 +104,6 @@ div.row {
     width: 100%;
 }
 
-.inline-block {
-    display: inline-block;
-}
-
-.inline-flex {
-    display: inline-flex;
-}
-
 #checkpoints-table td, #checkpoints-table th {
     border-bottom: 1px solid white;
-}
-
-@keyframes fade {
-    0%, 100%{filter:opacity(1)}
-    50%{filter:opacity(.5)}    
 }

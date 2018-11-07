@@ -197,6 +197,13 @@ class ExecutionAdmin(admin.ModelAdmin):
     class Media:
         js = (
             settings.STATIC_URL  + 'js/execution/execution-form-events.js',
+            settings.STATIC_URL  + 'js/chart.min.js',
+            settings.STATIC_URL  + 'js/jquery-ui-1.12.1.custom/jquery-ui.min.js',
+        )
+        css = (
+            settings.STATIC_URL  + 'js/jquery-ui-1.12.1.custom/jquery-ui.min.css',
+            settings.STATIC_URL  + 'js/jquery-ui-1.12.1.custom/jquery-ui.theme.min.css',
+            settings.STATIC_URL  + 'js/jquery-ui-1.12.1.custom/jquery-ui.structure.min.css',
         )
         css = {'all': (
             )

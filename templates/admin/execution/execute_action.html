@@ -15,7 +15,8 @@
 <div id="content-main" style="display: none;">
 	<ul class="object-tools">
 		<li>
-			<a href="{% url 'admin:execution-print' entry.pk %}" class="button" target="_blank" style="display: none;">{% trans 'Print' %}</a>
+			<a href="#" class="historylink" id="open-dialog-chart-button">{% trans 'Open Chart Dialog' %}</a>
+			<a href="{% url 'admin:execution-print' entry.pk %}" class="historylink" style="display: none;" target="_blank">{% trans 'Print' %}</a>
 			{% if perms.execution.can_reexecute %}
 				<a href="{% url 'admin:execution-reexecute' entry.pk %}" class="historylink" style="display: none;">{% trans 'Re-execute' %}</a>
 			{% endif %}
@@ -24,7 +25,7 @@
 
 	<fieldset class="module aligned">
 		<div class="row">
-			<div class="col-2 inline-block">
+			<div>
 				<label>{% trans 'Date Started' %}: </label> 
 				<div id="date-started">{% if entry.date_started %}{{entry.date_started}}{% else %}-{% endif %}</div>
 				
@@ -37,12 +38,12 @@
 				<div id="execution-status" class="{{ entry.status|lower }}">{{ entry.status }}</div>
 			</div>
 
-			<div class="col-2 inline-flex">
+			<div id="chart-modal">
                 <div class="chart-container">
-                    <canvas id="module-chart" width="10px" height="10px"></canvas>
+                    <canvas id="module-chart"></canvas>
                 </div>
                 <div class="chart-container">
-                    <canvas id="script-chart" width="10px" height="10px"></canvas>
+                    <canvas id="script-chart"></canvas>
                 </div>
             </div>
 			
@@ -66,9 +67,15 @@
 	</table>
 </div>
 
+<link rel="stylesheet" type="text/css" href="{% static 'js/jquery-ui-1.12.1.custom/jquery-ui.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'js/jquery-ui-1.12.1.custom/jquery-ui.theme.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'js/jquery-ui-1.12.1.custom/jquery-ui.structure.min.css' %}">
+
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="{% static 'js/chart.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/execution/execution-execute.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery-ui-1.12.1.custom/jquery-ui.min.js' %}"></script>
+
 <script type="text/javascript">
 	var execute_runtime = {% if entry.date_finished %}false{% else %}true{% endif %};
 	runtime_loop(execute_runtime);
