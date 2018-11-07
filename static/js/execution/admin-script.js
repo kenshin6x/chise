@@ -62,9 +62,11 @@ function load_checkpoints(refresh=true) {
             }
         });
 
-        if (row.reference == 2 && refresh) {
+        if (row.reference == 2 && row.object == 1 && refresh) {
             clearInterval(interval);
+            // $('#date-finished').html(result.date_finished);
             window.location.reload();
+            return false;
         }
 
         last_length = result.checkpoints.length;

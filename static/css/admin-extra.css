@@ -2,6 +2,10 @@
 @import url('https://fonts.googleapis.com/css?family=Bangers');
 @import url('https://fonts.googleapis.com/css?family=Merriweather');
 
+body {
+    background: #fef5e6;
+}
+
 .login #header h1 a {
     color: #f5dd5d !important;
 }
@@ -9,6 +13,10 @@
 /*Containers*/
 .dashboard #content {
     width: auto !important; 
+}
+
+#container {
+    background-color: #fef5e6;
 }
 
 #container .breadcrumbs {
@@ -23,6 +31,10 @@
     background: linear-gradient(to right, #773400 50%,#fc9300 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#773400', endColorstr='#fc9300',GradientType=1 );
     border-bottom: 3px solid #401b00;
+}
+
+.module {
+    background-color: unset;
 }
 
 .module h2, .module caption, .inline-group h2 {
@@ -50,8 +62,17 @@
     border-bottom-color: #ffffff !important;
 }
 
+.form-row {
+    border-bottom: 1px solid #783401 !important;
+}
+
 #content, body, td, th, input, textarea, select, .form-row p, form .button {
     font-family: 'Merriweather' !important ;
+}
+
+#content > h1:first-child {
+    color: #401900;
+    font-weight: bold;
 }
 
 #content-main > div[class^="app"] {
@@ -59,7 +80,7 @@
     display: inline-flex;
     box-shadow: 1px 2px 5px #616161 !important;
     margin-right: 5px;
-    border: 1px solid #401900;
+    background-color: #fff;
 }
 
 #content-main > div[class^="app"] > table {
@@ -75,9 +96,9 @@
     background-color: #e48401 !important;
 }
 
-tr a {
+/*tr a {
     font-size: 15px !important;
-}
+}*/
 
 .module caption a {
     white-space: nowrap;
@@ -85,12 +106,33 @@ tr a {
     font-weight: bolder;
 }
 
+#result_list tr:nth-child(even) {
+    background-color: #ffebc8 !important;
+}
+
+thead th.sorted {
+    background-color: #ffd58a !important;
+}
+
+thead th {
+    background-color: #ffd58a !important;
+    color: #401a00 !important;
+}
+
+th .text a:hover {
+    background: #f99202 !important;
+}
+
 #content-main > div[class^="app"] tr a, #recent-actions-module, #recent-actions-module a, #result_list, #result_list a {
-    color: #401a00;
+    color: #401a00 !important;
 }
 
 #content-main > div[class^="app"] tr th a:hover {
     border-bottom: 1px solid #401a00;
+}
+
+#toolbar, .paginator, .submit-row {
+    background-color: #ffebc8 !important;
 }
 
 #recent-actions-module > h2 {
@@ -107,6 +149,7 @@ tr a {
 
 #changelist-filter {
     background-color: #fff5e7 !important;
+    box-shadow: 1px 2px 5px #616161 !important;
 }
 
 #changelist-filter li.selected a {
@@ -161,8 +204,8 @@ select {
     font-weight: bold;
 }
 
-.form-row input[type='text']:not([name='username']) {
-    width: 80% !important;
+input:not([name='username']):not([type='submit']):not([type='checkbox']), textarea {
+    min-width: 700px;
 }
 
 .selector-available select option, .selector-chosen select option {
@@ -175,6 +218,10 @@ select {
     border-style: solid;
     border-color: #783401;
     border-width: 0.05px 0px;
+}
+
+.selector-filter input {
+    width: 320px !important;
 }
 
 /*Buttons*/
@@ -225,7 +272,7 @@ input[type="submit"].default {
 }
 
 #checkpoints-table > tbody > tr:nth-child(even) {
-    background: #f9f9f9;
+    background: #ffebc8;
 }
 
 .waiting, .running, .finished {
