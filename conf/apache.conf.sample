@@ -1,0 +1,35 @@
+<VirtualHost *:80>
+
+    ServerName chise
+
+    ProxyPass /robots.txt !
+    ProxyPass /favicon.ico !
+    ProxyPass /static/ !
+    ProxyPass /media !
+
+    Alias /static "/var/www/html/chise/static"
+    Alias /media "/var/www/html/chise/media"
+
+    ErrorLog ${APACHE_LOG_DIR}/chise_error.log
+    CustomLog ${APACHE_LOG_DIR}/chise_access.log combined
+
+    <Proxy *>
+        Order deny,allow
+        Allow from all
+    </Proxy>
+
+    ProxyPreserveHost On
+
+    ProxyPass / http://127.0.0.1:8000/
+    ProxyPassReverse / http://127.0.0.1:8000/
+
+    ProxyPass "/vnc" "http://127.0.0.1:6080/"
+    ProxyPassReverse "/vnc" "http://127.0.0.1:6080/"
+
+    <Directory /var/www/html/chise>
+        Order deny,allow
+        Allow from all
+        Options -Indexes
+    </Directory>
+
+</VirtualHost>
