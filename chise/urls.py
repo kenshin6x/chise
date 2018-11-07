@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
 from django.utils.translation import ugettext_lazy as _
+from chise.core.views import *
 from chise import settings
 
 
@@ -26,6 +27,7 @@ admin.site.index_title = _('Administration')
 
 urlpatterns = [
     path('', admin.site.urls),
+    path('vnc1', VNCView.as_view(), name='vnc'),
 ]
 
 if 'rosetta' in settings.INSTALLED_APPS:
