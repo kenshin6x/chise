@@ -45,10 +45,10 @@ function load_checkpoints(refresh=true) {
         $(result.checkpoints).each(function(){
             row = $(this)[0];
             
-            rows += '<tr>';
+            rows += '<tr class="'+ (row.status == 1 ? 'tr-success' : 'tr-fail') +'">';
                 rows += '<td>'+ row.reference_display +'</td>';
                 rows += '<td>'+ row.object_display +'</td>';
-                rows += '<td class="'+ (row.status == 1 ? 'td-success' : 'td-fail') +'">'+ row.status_display +'</td>';
+                rows += '<td>'+ row.status_display +'</td>';
                 rows += '<td>'+ row.name +'</td>';
                 rows += '<td>'+ (row.description == null ? '-' : row.description) +'</td>';
                 rows += '<td>'+ row.date_checkpoint +'</td>';
@@ -85,7 +85,7 @@ function load_checkpoints(refresh=true) {
     });
 }
 
-function render_chart(data, type='pie'){
+function render_chart(data, type='doughnut'){
     for(var key in data) {
         var ctx = document.getElementById(key+'-chart');
         var myChart = new Chart(ctx, {
@@ -95,10 +95,10 @@ function render_chart(data, type='pie'){
                 datasets: [{
                     data: data[key]['content'],
                     backgroundColor: [
-                        '#12c56e',
-                        '#c51212',
+                        '#69F0AE',
+                        '#EF9A9A',
                     ],
-                    borderWidth: 1
+                    borderWidth: 3
                 }]
             },
             options: {
@@ -108,6 +108,7 @@ function render_chart(data, type='pie'){
                 title: {
                     display: true,
                     text: key.toUpperCase(),
+                    position: 'left'
                 },
                 responsive: true,
             }

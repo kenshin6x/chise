@@ -441,15 +441,17 @@ select {
 }
 
 select[multiple] {
+    /* Allow HTML size attribute to override the height in the rule above. */
+    height: auto;
     min-height: 150px;
 }
 
 /* FORM BUTTONS */
 
 .button, input[type=submit], input[type=button], .submit-row input, a.button {
-    background: #fc9300;
+    background: #79aec8;
     padding: 10px 15px;
-    border: 1px solid #ccc;
+    border: none;
     border-radius: 4px;
     color: #fff;
     cursor: pointer;
@@ -462,7 +464,7 @@ a.button {
 .button:active, input[type=submit]:active, input[type=button]:active,
 .button:focus, input[type=submit]:focus, input[type=button]:focus,
 .button:hover, input[type=submit]:hover, input[type=button]:hover {
-    background-color: #fcd58a;
+    background: #609ab6;
 }
 
 .button[disabled], input[type=submit][disabled], input[type=button][disabled] {
@@ -827,10 +829,12 @@ table#change-history tbody th {
 
 #header {
     width: auto;
-    height: 40px;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 10px 40px;
     background: #417690;
-    line-height: 40px;
     color: #ffc;
     overflow: hidden;
 }

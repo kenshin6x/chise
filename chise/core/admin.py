@@ -21,7 +21,7 @@ class PermissionAdmin(admin.ModelAdmin):
 @admin.register(Group)
 class GroupAdmin(admin.ModelAdmin):
     list_display = ('name', 'get_variables',)
-    autocomplete_fields = ('variables',)
+    filter_horizontal = ('variables',)
     search_fields = ('name',
                     'variables__name',
                     'variables__value',
@@ -65,7 +65,7 @@ class ScriptAdmin(admin.ModelAdmin):
                     'variables__value',
                     'description',)
     list_filter = ('group__name',)
-    autocomplete_fields = ('variables',)
+    filter_horizontal = ('variables',)
 
     def get_variables(self, object):
         return mark_safe('</br>'.join([str(o) for o in object.variables.all()]))
@@ -108,7 +108,7 @@ class ModuleAdmin(admin.ModelAdmin):
                     'variables__value',
                     'description',)
     list_filter = ('group',)
-    autocomplete_fields = ('variables', 
+    filter_horizontal = ('variables', 
                         'scripts',)
     fieldsets = (
             ('', {'fields' : ('group',
@@ -175,7 +175,7 @@ class SiteAdmin(admin.ModelAdmin):
     list_display_links = ('group',
                         'name',
                         'url_base',)
-    autocomplete_fields = ('variables',)
+    filter_horizontal = ('variables',)
     search_fields = ('group__name',
                     'name',
                     'url_base',

@@ -28,7 +28,6 @@ class ExecutionAdmin(admin.ModelAdmin):
                     'site',
                     'get_modules',
                     'get_keywords',
-                    'user_created',
                     'date_started',
                     'date_finished',
                     'get_action_buttons',)
@@ -81,8 +80,8 @@ class ExecutionAdmin(admin.ModelAdmin):
 
         if object.is_finished():
             execute_button_name = _('View')
-            html += '<a class="button" href="%s">%s</a> ' % (reverse('admin:execution-print', 
-                                                        args=[object.pk]), _('Print'))      
+            # html += '<a class="button" href="%s">%s</a> ' % (reverse('admin:execution-print', 
+            #                                             args=[object.pk]), _('Print'))      
 
         html += '<a class="button" style="" href="%s">%s</a> ' % (reverse('admin:execution-execute', 
                                                     args=[object.pk]), 
@@ -198,5 +197,4 @@ class ExecutionAdmin(admin.ModelAdmin):
     class Media:
         js = (
             settings.STATIC_URL  + 'js/execution/execution-form-events.js',
-            settings.STATIC_URL  + 'js/execution/admin-script.js',
         )
