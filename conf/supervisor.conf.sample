@@ -39,7 +39,7 @@ stderr_logfile=/var/www/html/chise/log/xvfb.log
 redirect_stderr=True
 
 [program:chise-vnc]
-command=/usr/bin/x11vnc -shared -forever -display :99 -bg -nopw -xkb -rfbport 5906
+command=/usr/bin/x11vnc -shared -forever -viewonly -display :99 -bg -nopw -xkb -rfbport 5906
 user=root
 group=root
 autostart=true
