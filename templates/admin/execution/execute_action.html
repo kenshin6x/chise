@@ -15,11 +15,9 @@
 <div id="content-main" style="display: none;">
 	<ul class="object-tools">
 		<li>
-			{% if entry.is_finished %}
-				<a href="{% url 'admin:execution-print' entry.pk %}" class="button">{% trans 'Print' %}</a>
-				{% if perms.execution.can_reexecute %}
-					<a href="{% url 'admin:execution-reexecute' entry.pk %}" class="historylink">{% trans 'Re-execute' %}</a>
-				{% endif %}
+			<a href="{% url 'admin:execution-print' entry.pk %}" class="button" target="_blank" style="display: none;">{% trans 'Print' %}</a>
+			{% if perms.execution.can_reexecute %}
+				<a href="{% url 'admin:execution-reexecute' entry.pk %}" class="historylink" style="display: none;">{% trans 'Re-execute' %}</a>
 			{% endif %}
 		</li>    
 	</ul>
@@ -68,5 +66,8 @@
 <script type="text/javascript">
 	var execute_runtime = {% if entry.date_finished %}false{% else %}true{% endif %};
 	runtime_loop(execute_runtime);
+	{% if entry.is_finished %}				
+		$('.button, .historylink').fadeIn('slow');
+	{% endif %}
 </script>
 {% endblock %}
