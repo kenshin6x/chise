@@ -21,7 +21,7 @@ class PermissionAdmin(admin.ModelAdmin):
 @admin.register(Group)
 class GroupAdmin(admin.ModelAdmin):
     list_display = ('name', 'get_variables',)
-    filter_horizontal = ('variables',)
+    autocomplete_fields = ('variables',)
     search_fields = ('name',
                     'variables__name',
                     'variables__value',
@@ -65,7 +65,7 @@ class ScriptAdmin(admin.ModelAdmin):
                     'variables__value',
                     'description',)
     list_filter = ('group__name',)
-    filter_horizontal = ('variables',)
+    autocomplete_fields = ('variables',)
 
     def get_variables(self, object):
         return mark_safe('</br>'.join([str(o) for o in object.variables.all()]))
@@ -91,18 +91,6 @@ class ScriptsInline(admin.StackedInline):
     extra = 0
     min_num = 1
 
-    # def get_formset(self, request, object=None, **kwargs):
-    #     self.parent_object = object
-    #     return super().get_formset(request, object, **kwargs)
-
-    # def formfield_for_foreignkey(self, db_field, request, **kwargs):
-    #     if self.parent_object is not None:
-    #         qs = Script.objects.filter(group=self.parent_object.group)
-    #         kwargs['queryset'] = qs
-
-    #     return super().formfield_for_foreignkey(db_field, request, **kwargs)
-
-
 @admin.register(Module)
 class ModuleAdmin(admin.ModelAdmin):
     list_display = ('group',
@@ -120,7 +108,8 @@ class ModuleAdmin(admin.ModelAdmin):
                     'variables__value',
                     'description',)
     list_filter = ('group',)
-    filter_horizontal = ('variables', 'scripts',)
+    autocomplete_fields = ('variables', 
+                        'scripts',)
     fieldsets = (
             ('', {'fields' : ('group',
                             'name',
@@ -186,7 +175,7 @@ class SiteAdmin(admin.ModelAdmin):
     list_display_links = ('group',
                         'name',
                         'url_base',)
-    filter_horizontal = ('variables',)
+    autocomplete_fields = ('variables',)
     search_fields = ('group__name',
                     'name',
                     'url_base',
