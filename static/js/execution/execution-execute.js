@@ -5,6 +5,16 @@ if (!$) {
 
 $(document).ready(function(){
     $('#content-main').fadeIn('slow');
+    $('#open-dialog-chart-button').click();
+});
+
+$('#open-dialog-chart-button').click(function() {
+    $('#chart-modal').dialog({
+        title: "Execution Charts",
+        minWidth: 500,
+        minHeight: 300,
+        position: { my: "center", at: 'right' }
+    });
 });
 
 var interval = null;
@@ -72,7 +82,7 @@ function load_checkpoints(refresh=true) {
         render_chart(data);
 
         if (row.reference == 2) {
-            $('.button, .historylink').fadeIn('slow');
+            $('#content-main .object-tools a').fadeIn('slow');
             $('#date-finished').html(result.date_finished);
 
             if (row.status == 1) {
@@ -108,7 +118,7 @@ function render_chart(data, type='doughnut'){
                 title: {
                     display: true,
                     text: key.toUpperCase(),
-                    position: 'left'
+                    position: 'top'
                 },
                 responsive: true,
             }
