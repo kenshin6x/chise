@@ -27,7 +27,7 @@ admin.site.index_title = _('Administration')
 
 urlpatterns = [
     path('', admin.site.urls),
-    path('vnc1', VNCView.as_view(), name='vnc'),
+    path('vnc', VNCView.as_view(), name='vnc'),
 ]
 
 if 'rosetta' in settings.INSTALLED_APPS:
