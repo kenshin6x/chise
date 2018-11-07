@@ -22,6 +22,7 @@ with open('settings.json') as f:
 # Project Vars
 PROJECT_CODENAME = 'chise'
 PROJECT_NAME = settings_file['project']['name']
+DOMAIN = settings_file['project']['domain']
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
