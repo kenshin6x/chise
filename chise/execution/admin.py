@@ -198,3 +198,6 @@ class ExecutionAdmin(admin.ModelAdmin):
         js = (
             settings.STATIC_URL  + 'js/execution/execution-form-events.js',
         )
+        css = {'all': (
+            )
+        }
