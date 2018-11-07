@@ -142,13 +142,13 @@ th .text a:hover {
 }
 
 #content-related {
-    background-color: #fff5e7 !important;
+    background-color: #ffffff !important;
     border: 1px solid #401a00;
     box-shadow: 1px 2px 5px #616161 !important;
 }
 
 #changelist-filter {
-    background-color: #fff5e7 !important;
+    background-color: #ffffff !important;
     box-shadow: 1px 2px 5px #616161 !important;
 }
 
@@ -204,7 +204,7 @@ select {
     font-weight: bold;
 }
 
-input:not([name='username']):not([type='submit']):not([type='checkbox']), textarea {
+input:not([name='username']):not([[type='password']]):not([type='submit']):not([type='checkbox']), textarea {
     min-width: 700px;
 }
 

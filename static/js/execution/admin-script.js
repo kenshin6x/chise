@@ -36,8 +36,10 @@ function load_checkpoints(refresh=true) {
             },
         };
 
-        if (result.checkpoints.length <= last_length) {
+        if (result.checkpoints.length <= last_length && result.status.toLowerCase() != 'finished') {
             return false;
+        } else if (result.status.toLowerCase() == 'finished') {
+            clearInterval(interval);
         }
 
         $(result.checkpoints).each(function(){
@@ -62,25 +64,22 @@ function load_checkpoints(refresh=true) {
             }
         });
 
-        if (row.reference == 2 && row.object == 1 && refresh) {
-            clearInterval(interval);
-            // $('#date-finished').html(result.date_finished);
-            window.location.reload();
-            return false;
-        }
-
         last_length = result.checkpoints.length;
         $('#date-started').html(result.date_started);
         $('#execution-status').html(result.status).attr('class', result.status.toLowerCase());
-
         $('#checkpoints-table tbody').html(rows);
 
         render_chart(data);
 
-        if (row.reference == 2 && row.status == 1) {
-            $('#execution-status').addClass('td-success');
-        } else if (row.reference == 2 && row.status == 2) {
-            $('#execution-status').addClass('td-fail');
+        if (row.reference == 2) {
+            $('.button, .historylink').fadeIn('slow');
+            $('#date-finished').html(result.date_finished);
+
+            if (row.status == 1) {
+                $('#execution-status').addClass('td-success');    
+            } else if (row.status == 2) {
+                $('#execution-status').addClass('td-fail');
+            }
         }
 
     });
