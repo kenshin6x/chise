@@ -37,7 +37,7 @@ function load_checkpoints() {
         var row = '';
         var data = {
             'progress': {
-                'labels': ['Execution Progress'],
+                //'labels': ['Execution Progress'],
                 'content': [],
                 'type-chart': 'horizontalBar',
                 'extra-options': {
@@ -55,7 +55,7 @@ function load_checkpoints() {
                 }
             },
             'module': {
-                'labels': ['Success', 'Fail'],
+                'labels': ['SUCCESS', 'FAIL'],
                 'content': [],
                 'type-chart': 'doughnut',
                 'extra-options': {},
@@ -106,11 +106,11 @@ function render_chart(data){
             legend: {
                 display: false,
             },
-            title: {
-                display: true,
-                text: key.toUpperCase(),
-                position: 'top'
-            },
+            // title: {
+            //     display: true,
+            //     text: key.toUpperCase(),
+            //     position: 'top'
+            // },
             responsive: true,
             layout: {
                 padding: {
