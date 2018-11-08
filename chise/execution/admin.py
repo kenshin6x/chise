@@ -32,7 +32,6 @@ class ExecutionAdmin(admin.ModelAdmin):
                     'get_action_buttons',)
     list_display_links = ('id',
                         'site',
-                        'get_modules',
                         'get_keywords',)
     search_fields = ('site__name',
                     'modules__name',
