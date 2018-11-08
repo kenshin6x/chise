@@ -11,6 +11,3 @@ class VNCView(generic.RedirectView):
         self.url = scheme + '://' + settings.DOMAIN + ':6080/vnc_lite.html'
 
         return super().get_redirect_url(self, *args, **kwargs)
-
-
-

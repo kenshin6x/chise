@@ -150,13 +150,14 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-LOCALE_PATHS = (
-    (os.path.join(BASE_DIR, 'locale')),
-)
-
 LANGUAGES = (
     ('en', _('English')),
-    ('pt_br', _('Brazilian')),
+    ('pt-br', _('Português Brasileiro')),
+)
+
+
+LOCALE_PATHS = (
+    (os.path.join(BASE_DIR, 'locale')),
 )
 
 FIREFOX_BIN = settings_file['bin']['firefox']

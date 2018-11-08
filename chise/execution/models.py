@@ -49,8 +49,8 @@ class Checkpoint(models.Model):
                                         blank=False)
 
     class __Meta__:
-        verbose_name = _('Checkpint')
-        verbose_name_plural = _('Checkpoint')
+        verbose_name = _('Checkpoint')
+        verbose_name_plural = _('Checkpoints')
         ordering = ['pk']
 
 

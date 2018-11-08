@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
+from django.conf.urls.i18n import i18n_patterns
 from django.utils.translation import ugettext_lazy as _
 from chise.core.views import *
 from chise import settings
@@ -25,10 +26,10 @@ admin.site.site_header = settings.PROJECT_NAME
 admin.site.site_title = settings.PROJECT_NAME
 admin.site.index_title = _('Administration')
 
-urlpatterns = [
+urlpatterns = i18n_patterns(
     path('', admin.site.urls),
     path('vnc', VNCView.as_view(), name='vnc'),
-]
+)
 
 if 'rosetta' in settings.INSTALLED_APPS:
     urlpatterns += [

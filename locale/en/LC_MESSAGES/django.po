@@ -8,26 +8,29 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-05 20:29+0000\n"
-"PO-Revision-Date: 2018-10-29 22:08+0000\n"
-"Last-Translator: b'  <seisxis@gmail.com>'\n"
+"POT-Creation-Date: 2018-11-08 18:58+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"X-Translated-Using: django-rosetta 0.9.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: chise/core/admin.py:33 chise/core/admin.py:68 chise/core/admin.py:130
-#: chise/core/admin.py:197 chise/core/models.py:28 chise/core/models.py:49
+#: chise/core/admin.py:33 chise/core/admin.py:73 chise/core/admin.py:127
+#: chise/core/admin.py:190 chise/core/models.py:28 chise/core/models.py:49
 #: chise/core/models.py:76 chise/core/models.py:108 chise/core/models.py:135
 #: chise/execution/models.py:79
 msgid "Variables"
-msgstr "MINHAS VARIAVEIS"
+msgstr ""
 
-#: chise/core/admin.py:135 chise/core/models.py:84 chise/core/models.py:105
+#: chise/core/admin.py:128 chise/core/models.py:84 chise/core/models.py:105
 msgid "Scripts"
+msgstr ""
+
+#: chise/core/apps.py:7
+msgid "Core"
 msgstr ""
 
 #: chise/core/backends/execution.py:57
@@ -54,7 +57,8 @@ msgstr ""
 #: chise/core/models.py:8 chise/core/models.py:43 chise/core/models.py:67
 #: chise/core/models.py:97 chise/core/models.py:127
 #: chise/execution/models.py:10 chise/execution/models.py:27
-#: templates/admin/execution/execute_action.html:54
+#: chise/execution/reports/execution.py:41
+#: templates/admin/execution/execute_action.html:60
 msgid "Name"
 msgstr ""
 
@@ -68,13 +72,14 @@ msgstr ""
 
 #: chise/core/models.py:21 chise/core/models.py:101
 #: chise/execution/models.py:43 chise/execution/models.py:69
-#: templates/admin/execution/execute_action.html:55
+#: chise/execution/reports/execution.py:42
+#: templates/admin/execution/execute_action.html:61
 msgid "Description"
 msgstr ""
 
 #: chise/core/models.py:27
 msgid "Variable"
-msgstr "MINHA VARIAVEL"
+msgstr ""
 
 #: chise/core/models.py:53 chise/core/models.py:64 chise/core/models.py:94
 #: chise/core/models.py:123
@@ -113,40 +118,35 @@ msgstr ""
 msgid "Sites"
 msgstr ""
 
-#: chise/execution/admin.py:74
+#: chise/execution/admin.py:53
+msgid "Extra"
+msgstr ""
+
+#: chise/execution/admin.py:69
 msgid "Execute"
 msgstr ""
 
-#: chise/execution/admin.py:77 chise/execution/models.py:137
-#: templates/admin/execution/execute_action.html:38
+#: chise/execution/admin.py:72 chise/execution/models.py:137
 msgid "Running"
 msgstr ""
 
-#: chise/execution/admin.py:80 templates/admin/edit_inline/stacked.html:12
+#: chise/execution/admin.py:75 templates/admin/edit_inline/stacked.html:12
 #: templates/admin/edit_inline/tabular.html:34 templates/admin/index.html:38
 #: templates/admin/related_widget_wrapper.html:15
 msgid "View"
 msgstr ""
 
-#: chise/execution/admin.py:86 chise/execution/models.py:68
-msgid "Modules"
-msgstr ""
-
-#: chise/execution/admin.py:87 chise/execution/models.py:76
-msgid "Checkpoints"
-msgstr ""
-
-#: chise/execution/admin.py:88 chise/execution/models.py:18
+#: chise/execution/admin.py:83 chise/execution/models.py:18
 #: chise/execution/models.py:73
 msgid "Keywords"
 msgstr ""
 
-#: chise/execution/admin.py:89
-msgid "Actions"
+#: chise/execution/admin.py:84
+msgid "Action(s)"
 msgstr ""
 
-#: chise/execution/admin.py:128 chise/execution/models.py:100
-#: chise/execution/models.py:101
+#: chise/execution/admin.py:152 chise/execution/apps.py:7
+#: chise/execution/models.py:100 chise/execution/models.py:101
 #: templates/admin/execution/execute_action.html:11
 msgid "Execution"
 msgstr ""
@@ -187,33 +187,37 @@ msgstr ""
 msgid "Keyword"
 msgstr ""
 
-#: chise/execution/models.py:31
-#: templates/admin/execution/execute_action.html:33
-#: templates/admin/execution/execute_action.html:51
+#: chise/execution/models.py:31 chise/execution/reports/execution.py:38
+#: templates/admin/execution/execute_action.html:37
+#: templates/admin/execution/execute_action.html:59
 msgid "Status"
 msgstr ""
 
-#: chise/execution/models.py:35
-#: templates/admin/execution/execute_action.html:53
+#: chise/execution/models.py:35 chise/execution/reports/execution.py:40
+#: templates/admin/execution/execute_action.html:58
 msgid "Object"
 msgstr ""
 
-#: chise/execution/models.py:39
-#: templates/admin/execution/execute_action.html:52
+#: chise/execution/models.py:39 chise/execution/reports/execution.py:39
+#: templates/admin/execution/execute_action.html:57
 msgid "Reference"
 msgstr ""
 
-#: chise/execution/models.py:46
-#: templates/admin/execution/execute_action.html:56
+#: chise/execution/models.py:46 chise/execution/reports/execution.py:43
+#: templates/admin/execution/execute_action.html:62
 msgid "Date Checkpoint"
 msgstr ""
 
 #: chise/execution/models.py:52
-msgid "Checkpint"
+msgid "Checkpoint"
 msgstr ""
 
-#: chise/execution/models.py:53
-msgid "Checkpoint"
+#: chise/execution/models.py:53 chise/execution/models.py:76
+msgid "Checkpoints"
+msgstr ""
+
+#: chise/execution/models.py:68
+msgid "Modules"
 msgstr ""
 
 #: chise/execution/models.py:83
@@ -230,7 +234,7 @@ msgid "Date Started"
 msgstr ""
 
 #: chise/execution/models.py:94
-#: templates/admin/execution/execute_action.html:31
+#: templates/admin/execution/execute_action.html:33
 msgid "Date Finished"
 msgstr ""
 
@@ -243,24 +247,22 @@ msgid "Can re-execute execution"
 msgstr ""
 
 #: chise/execution/models.py:135
-#: templates/admin/execution/execute_action.html:36
 msgid "Finished"
 msgstr ""
 
 #: chise/execution/models.py:139
-#: templates/admin/execution/execute_action.html:40
 msgid "Waiting"
 msgstr ""
 
-#: chise/settings.py:153
+#: chise/settings.py:154
 msgid "English"
 msgstr ""
 
-#: chise/settings.py:154
-msgid "Brazilian"
+#: chise/settings.py:155
+msgid "Português Brasileiro"
 msgstr ""
 
-#: chise/urls.py:25
+#: chise/urls.py:27
 msgid "Administration"
 msgstr ""
 
@@ -1616,7 +1618,7 @@ msgstr ""
 
 #: templates/admin/500.html:6 templates/admin/app_index.html:9
 #: templates/admin/auth/user/change_password.html:13
-#: templates/admin/base.html:62 templates/admin/change_form.html:18
+#: templates/admin/base.html:69 templates/admin/change_form.html:18
 #: templates/admin/change_list.html:31
 #: templates/admin/delete_confirmation.html:14
 #: templates/admin/delete_selected_confirmation.html:14
@@ -1683,7 +1685,7 @@ msgstr ""
 
 #: templates/admin/auth/user/change_password.html:17
 #: templates/admin/auth/user/change_password.html:55
-#: templates/admin/base.html:50
+#: templates/admin/base.html:57
 #: templates/registration/password_change_done.html:3
 #: templates/registration/password_change_form.html:4
 msgid "Change password"
@@ -1691,14 +1693,14 @@ msgstr ""
 
 #: templates/admin/auth/user/change_password.html:28
 #: templates/admin/change_form.html:43 templates/admin/change_list.html:51
-#: templates/admin/login.html:25
+#: templates/admin/login.html:22
 #: templates/registration/password_change_form.html:21
 msgid "Please correct the error below."
 msgstr ""
 
 #: templates/admin/auth/user/change_password.html:28
 #: templates/admin/change_form.html:43 templates/admin/change_list.html:51
-#: templates/admin/login.html:25
+#: templates/admin/login.html:22
 #: templates/registration/password_change_form.html:21
 msgid "Please correct the errors below."
 msgstr ""
@@ -1708,25 +1710,21 @@ msgstr ""
 msgid "Enter a new password for the user <strong>%(username)s</strong>."
 msgstr ""
 
-#: templates/admin/base.html:35
+#: templates/admin/base.html:37
 msgid "Welcome,"
 msgstr ""
 
-#: templates/admin/base.html:39
+#: templates/admin/base.html:49
 msgid "VNC"
 msgstr ""
 
-#: templates/admin/base.html:41
-msgid "View site"
-msgstr ""
-
-#: templates/admin/base.html:46
+#: templates/admin/base.html:53
 #: templates/registration/password_change_done.html:3
 #: templates/registration/password_change_form.html:4
 msgid "Documentation"
 msgstr ""
 
-#: templates/admin/base.html:52
+#: templates/admin/base.html:59
 #: templates/registration/password_change_done.html:3
 #: templates/registration/password_change_form.html:4
 msgid "Log out"
@@ -1841,7 +1839,15 @@ msgstr ""
 msgid "Delete?"
 msgstr ""
 
-#: templates/admin/execution/execute_action.html:20
+#: templates/admin/execution/execute_action.html:18
+msgid "Charts"
+msgstr ""
+
+#: templates/admin/execution/execute_action.html:19
+msgid "Print"
+msgstr ""
+
+#: templates/admin/execution/execute_action.html:21
 msgid "Re-execute"
 msgstr ""
 
@@ -1891,18 +1897,18 @@ msgid ""
 "the appropriate user."
 msgstr ""
 
-#: templates/admin/login.html:41
+#: templates/admin/login.html:38
 #, python-format
 msgid ""
 "You are authenticated as %(username)s, but are not authorized to access this "
 "page. Would you like to login to a different account?"
 msgstr ""
 
-#: templates/admin/login.html:61
+#: templates/admin/login.html:58
 msgid "Forgotten your password or username?"
 msgstr ""
 
-#: templates/admin/login.html:65
+#: templates/admin/login.html:62
 #: templates/registration/password_reset_complete.html:18
 msgid "Log in"
 msgstr ""

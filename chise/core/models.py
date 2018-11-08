@@ -139,7 +139,7 @@ class Site(models.Model):
         unique_together = (('group', 'name'), )
         verbose_name = _('Site')
         verbose_name_plural = _('Sites')
-        ordering = ['name']
+        ordering = ['group', 'name']
 
     def __str__(self):
         return u'%s - %s' % (self.group, self.name)

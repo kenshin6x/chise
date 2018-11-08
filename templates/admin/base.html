@@ -16,6 +16,8 @@
 </head>
 {% load i18n %}
 
+{% load i18n_switcher %}
+
 <body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}"
   data-admin-utc-offset="{% now "Z" %}">
 
@@ -36,6 +38,13 @@
                 <strong>{% firstof user.get_short_name user.get_username %}</strong>.
             {% endblock %}
             {% block userlinks %}
+
+                <a href="{{ request|switch_i18n:'en' }}">
+                    EN
+                </a> /
+                <a href="{{ request|switch_i18n:'pt-br' }}">
+                    PT-BR
+                </a> /
 
                 <a href="{% url 'vnc' %}"  onclick="window.open(this.href, 'windowName', 'width=1024, height=768, left=24, top=24, scrollbars, resizable'); return false;" target="_blank">{% trans 'VNC' %}</a> /
                 {% if user.is_active and user.is_staff %}
