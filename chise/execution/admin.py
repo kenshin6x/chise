@@ -205,3 +205,6 @@ class ExecutionAdmin(admin.ModelAdmin):
             settings.STATIC_URL  + 'js/jquery-ui-1.12.1.custom/jquery-ui.theme.min.css',
             settings.STATIC_URL  + 'js/jquery-ui-1.12.1.custom/jquery-ui.structure.min.css',
         )
+        css = {'all': (
+            )
+        }
