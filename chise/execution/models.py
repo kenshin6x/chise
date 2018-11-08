@@ -13,10 +13,10 @@ class Keyword(models.Model):
                         null=False,
                         blank=False)
 
-    class __Meta__:
+    class Meta:
         verbose_name = _('Keyword')
         verbose_name_plural = _('Keywords')
-        ordering = ['keyword']
+        ordering = ['name']
 
 
     def __str__(self):
@@ -48,7 +48,7 @@ class Checkpoint(models.Model):
                                         null=False,
                                         blank=False)
 
-    class __Meta__:
+    class Meta:
         verbose_name = _('Checkpoint')
         verbose_name_plural = _('Checkpoints')
         ordering = ['pk']
@@ -96,10 +96,10 @@ class Execution(models.Model):
                                                     null=True,
                                                     blank=False)
 
-    class __Meta__:
+    class Meta:
         verbose_name = _('Execution')
         verbose_name_plural = _('Execution')
-        ordering = ['-date_created', 'site', 'module']
+        ordering = ['-pk']
         permissions = (
                 ('can_execute', _('Can execute execution')),
                 ('can_reexecute', _('Can re-execute execution')),

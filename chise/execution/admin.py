@@ -51,7 +51,7 @@ class ExecutionAdmin(admin.ModelAdmin):
                             'variables',
                             )}),
             (_('Extra'), {'fields' : ('keywords',
-                            'description')}),
+                                    'description')}),
     )
     filter_horizontal = ('modules', 'variables',)
     autocomplete_fields = ('keywords',)

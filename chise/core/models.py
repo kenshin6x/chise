@@ -18,11 +18,11 @@ class Variable(models.Model):
                                         default=constants.REQUEST_GET,
                                         null=False,
                                         blank=False)
-    description = models.TextField(_('Description'),
+    description = models.TextField(_(u'Description'),
                                 null=True,
                                 blank=True)
 
-    class __Meta__:
+    class Meta:
         unique_together = (('name', 'value', 'request_method'), )
         verbose_name = _('Variable')
         verbose_name_plural = _('Variables')
@@ -49,7 +49,7 @@ class Group(models.Model):
                                     verbose_name=_('Variables'),
                                     blank=True)
 
-    class __Meta__:
+    class Meta:
         verbose_name = _('Group')
         verbose_name_plural = _('Groups')
         ordering = ['name']
@@ -79,7 +79,7 @@ class Script(models.Model):
                             null=True,
                             blank=True)
 
-    class __Meta__:
+    class Meta:
         verbose_name = _('Script')
         verbose_name_plural = _('Scripts')
         ordering = ['group', 'name']
@@ -108,7 +108,7 @@ class Module(models.Model):
                                     verbose_name=_('Variables'),
                                     blank=True)
 
-    class __Meta__:
+    class Meta:
         unique_together = (('group', 'name'), )
         verbose_name = _('Module')
         verbose_name_plural = _('Module')
@@ -135,7 +135,7 @@ class Site(models.Model):
                                     verbose_name=_('Variables'),
                                     blank=True)
 
-    class __Meta__:
+    class Meta:
         unique_together = (('group', 'name'), )
         verbose_name = _('Site')
         verbose_name_plural = _('Sites')

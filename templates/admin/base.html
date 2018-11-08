@@ -38,14 +38,6 @@
                 <strong>{% firstof user.get_short_name user.get_username %}</strong>.
             {% endblock %}
             {% block userlinks %}
-
-                <a href="{{ request|switch_i18n:'en' }}">
-                    EN
-                </a> /
-                <a href="{{ request|switch_i18n:'pt-br' }}">
-                    PT-BR
-                </a> /
-
                 <a href="{% url 'vnc' %}"  onclick="window.open(this.href, 'windowName', 'width=1024, height=768, left=24, top=24, scrollbars, resizable'); return false;" target="_blank">{% trans 'VNC' %}</a> /
                 {% if user.is_active and user.is_staff %}
                     {% url 'django-admindocs-docroot' as docsroot %}
@@ -93,7 +85,18 @@
     </div>
     <!-- END Content -->
 
-    {% block footer %}<div id="footer"></div>{% endblock %}
+    {% block footer %}
+        <div id="footer">
+            <div>
+                <a href="{{ request|switch_i18n:'en' }}">
+                    <img src="{% static 'images/flags/united-states-of-america.png' %}">
+                </a>
+                <a href="{{ request|switch_i18n:'pt-br' }}">
+                    <img src="{% static '/images/flags/brazil.png' %}">
+                </a>
+            </div>
+        </div>
+    {% endblock %}
 </div>
 <!-- END Container -->
 

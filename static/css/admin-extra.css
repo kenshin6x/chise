@@ -12,6 +12,7 @@
     --logo-secondary-text-color: #CCFF90;
     --sucess-text-color: #B9F6CA;
     --fail-text-color: #FFCDD2;
+    --bg-light-color: #f8f8f8;
 }
 
 html * {
@@ -37,6 +38,23 @@ h1 {
 
 #header, div.breadcrumbs {
     box-shadow: 0 2px 4px rgba(0,0,0,.25);
+}
+
+#footer {
+    padding: 20px 40px;
+    text-align: right;
+    clear: both;
+    position: relative;
+    z-index: 10;
+}
+
+#footer img {
+    width: 25px;
+    margin-left: 5px;
+}
+
+#footer a, #footer a:link, #footer a:hover, #footer a:visited {
+    text-decoration: none !important;
 }
 
 div.breadcrumbs, .module h2, .module caption, .inline-group h2 {
