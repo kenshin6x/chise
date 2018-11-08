@@ -3,7 +3,8 @@
         "name": "chise",
         "debug": true,
         "language": "en",
-        "timezone": "UTC"
+        "timezone": "UTC",
+        "domain": "127.0.0.1"
     },
     "bin": {
         "firefox": "/usr/bin/firefox",
@@ -17,8 +18,7 @@
         "user": "postgres",
         "password": "postgres",
         "port": "5432",
-        "host": "localhost",
-        "prefix": "ct_"
+        "host": "localhost"
     },
     "celery": {
         "broker_url": "amqp://localhost"
