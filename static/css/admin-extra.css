@@ -39,8 +39,9 @@ h1 {
     box-shadow: 0 2px 4px rgba(0,0,0,.25);
 }
 
-div.breadcrumbs, .module caption, .selector-chosen h2, #changelist-filter h2, .inline-group h2 {
+div.breadcrumbs, .module h2, .module caption, .inline-group h2 {
     background-color: var(--secondary-color) !important;
+    color: white !important;
 }
 
 .button, input[type=submit], input[type=button], .submit-row input, a.button {

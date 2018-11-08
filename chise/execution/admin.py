@@ -47,13 +47,14 @@ class ExecutionAdmin(admin.ModelAdmin):
                 'date_started',
                 'date_finished',)
     fieldsets = (
-            ('', {'fields' : ('site',
+            (None, {'fields' : ('site',
                             'modules',
                             'variables',
-                            'keywords',
+                            )}),
+            (_('Extra'), {'fields' : ('keywords',
                             'description')}),
     )
-    filter_horizontal = ('variables',)
+    filter_horizontal = ('modules', 'variables',)
     autocomplete_fields = ('keywords',)
 
     def get_modules(self, object):
@@ -70,22 +71,22 @@ class ExecutionAdmin(admin.ModelAdmin):
 
     def get_action_buttons(self, object):
         html = ''
-        execute_button_name = None
+        
+        if object.modules.count() > 0:
+            execute_button_name = None
 
-        if object.is_started() is False:
-            execute_button_name = _('Execute')
+            if object.is_started() is False:
+                execute_button_name = _('Execute')
 
-        if object.is_running():
-            execute_button_name = _('Running')
+            if object.is_running():
+                execute_button_name = _('Running')
 
-        if object.is_finished():
-            execute_button_name = _('View')
-            # html += '<a class="button" href="%s">%s</a> ' % (reverse('admin:execution-print', 
-            #                                             args=[object.pk]), _('Print'))      
+            if object.is_finished():
+                execute_button_name = _('View')
 
-        html += '<a class="button" style="" href="%s">%s</a> ' % (reverse('admin:execution-execute', 
-                                                    args=[object.pk]), 
-                                                    execute_button_name)            
+            html += '<a class="button" style="" href="%s">%s</a> ' % (reverse('admin:execution-execute', 
+                                                        args=[object.pk]), 
+                                                        execute_button_name)            
 
         return mark_safe('<div align="center">' + html + '</div>')
 
@@ -96,7 +97,23 @@ class ExecutionAdmin(admin.ModelAdmin):
 
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)
+
+        if obj is not None:
+            if obj.modules.all().count() == 0:
+                form.base_fields['modules'].queryset = core_models.Module.objects.filter(group=obj.site.group)
+
         return form
+
+    def get_readonly_fields(self, request, obj=None):
+        fields = []
+        
+        if obj is not None:
+            fields.append('site')
+        else:
+            fields.append('modules')
+            fields.append('variables')
+        
+        return fields
 
     def save_model(self, request, obj, form, change):
         obj.user_created = request.user
@@ -138,7 +155,8 @@ class ExecutionAdmin(admin.ModelAdmin):
 
         if request.user.has_perm('execution.can_execute'):
             if object.is_started() is False:
-                execution_task.delay(object.pk)
+                if object.modules.all().count() > 0:
+                    execution_task.delay(object.pk)
 
         context = {
             **self.admin_site.each_context(request),
@@ -157,12 +175,13 @@ class ExecutionAdmin(admin.ModelAdmin):
 
         if request.user.has_perm('execution.can_reexecute'):
             if object.is_finished():
-                object.checkpoints.all().delete()
-                object.date_started = None
-                object.date_finished = None
-                object.save()
+                if object.modules.all().count() > 0:
+                    object.checkpoints.all().delete()
+                    object.date_started = None
+                    object.date_finished = None
+                    object.save()
 
-                execution_task.delay(object.pk)
+                    execution_task.delay(object.pk)
 
         return redirect('admin:execution-execute', object_pk=object.pk)
 
@@ -209,7 +228,6 @@ class ExecutionAdmin(admin.ModelAdmin):
 
     class Media:
         js = (
-            settings.STATIC_URL  + 'js/execution/execution-form-events.js',
             settings.STATIC_URL  + 'js/chart.min.js',
             settings.STATIC_URL  + 'js/jquery-ui-1.12.1.custom/jquery-ui.min.js',
         )
