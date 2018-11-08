@@ -102,17 +102,16 @@ class ModuleScript(models.Model):
                             null=False,
                             blank=False)
     order = models.IntegerField(_('Order'),
-                                unique=True,
                                 validators=[MinValueValidator(1), MaxValueValidator(99)],
                                 null=True,
                                 blank=False)
 
     class Meta:
-        unique_together = (('module', 'script'),)
+        db_table = 'core_module_scripts'
+        unique_together = (('module', 'order'), ('module', 'script'),)
         verbose_name = _('Scripts')
         verbose_name_plural = _('Scripts')
-        ordering = ['order']
-        db_table = 'core_module_scripts'
+        ordering = ['module', 'order']
 
     def __str__(self):
         return u'%s' % self.script
