@@ -10,7 +10,7 @@ $(document).ready(function(){
 
 $('#open-dialog-chart-button').click(function() {
     $('#chart-modal').dialog({
-        title: "Execution Charts",
+        title: "Progress Bar",
         minWidth: 500,
         minHeight: 300,
         position: { my: "center", at: 'right' }
@@ -36,14 +36,16 @@ function load_checkpoints(refresh=true) {
         var row = '';
         var labels = ['Success', 'Fail'];
         var data = {
+            'progress': {
+                'labels': 'Execution Progress',
+                'content': [0],
+                'type-chart': 'doughnut'
+            },
             'module': {
                 'labels': labels,
                 'content': [0, 0],
-            },
-            'script': {
-                'labels': labels,
-                'content': [0, 0],
-            },
+                'type-chart': 'horizontalBar'
+            }
         };
 
         if (result.checkpoints.length <= last_length && result.status.toLowerCase() != 'finished') {
@@ -51,7 +53,7 @@ function load_checkpoints(refresh=true) {
         } else if (result.status.toLowerCase() == 'finished') {
             clearInterval(interval);
         }
-
+        console.log(result.checkpoints.length())
         $(result.checkpoints).each(function(){
             row = $(this)[0];
             
@@ -62,20 +64,10 @@ function load_checkpoints(refresh=true) {
                 rows += '<td>'+ row.name +'</td>';
                 rows += '<td>'+ (row.description == null ? '-' : row.description) +'</td>';
                 rows += '<td>'+ row.date_checkpoint +'</td>';
-            rows += '</tr>';
-
-            if (row.reference == 2) {
-                switch(row.object) {
-                    case 1:
-                        data['module']['content'][row.status-1]++;
-                        break;
-                    case 2:
-                    data['script']['content'][row.status-1]++;
-                    break;
-                }
-            }
-            
+            rows += '</tr>';            
         });
+
+        data['progress']['content'][0] = (rows.checkpoints.length/7)*100;
 
         last_length = result.checkpoints.length;
         $('#date-started').html(result.date_started);
@@ -98,18 +90,17 @@ function load_checkpoints(refresh=true) {
     });
 }
 
-function render_chart(data, type='doughnut'){
+function render_chart(data){
     for(var key in data) {
         var ctx = document.getElementById(key+'-chart');
         var myChart = new Chart(ctx, {
-            type: type,
+            type: data[key]['type-chart'],
             data: {
                 labels: data[key]['labels'],
                 datasets: [{
                     data: data[key]['content'],
                     backgroundColor: [
                         '#69F0AE',
-                        '#EF9A9A',
                     ],
                     borderWidth: 3
                 }]
@@ -124,6 +115,14 @@ function render_chart(data, type='doughnut'){
                     position: 'top'
                 },
                 responsive: true,
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            min: 0,
+                            max: 100
+                        }
+                    }]
+                }
             }
         });
     }
