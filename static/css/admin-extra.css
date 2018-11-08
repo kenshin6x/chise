@@ -71,8 +71,9 @@ div.breadcrumbs, .module h2, .module caption, .inline-group h2 {
 }
 
 #content-main > div[class^="app"] {
-    min-width: 30% !important;
+    min-width: 25% !important;
     display: inline-flex;
+    margin-right: 15px;
 }
 
 #content-main > div[class^="app"] > table {

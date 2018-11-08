@@ -26,7 +26,6 @@ class KeywordAdmin(admin.ModelAdmin):
 class ExecutionAdmin(admin.ModelAdmin):
     list_display = ('id',
                     'site',
-                    'get_modules',
                     'get_keywords',
                     'date_started',
                     'date_finished',
@@ -57,15 +56,6 @@ class ExecutionAdmin(admin.ModelAdmin):
     filter_horizontal = ('modules', 'variables',)
     autocomplete_fields = ('keywords',)
 
-    def get_modules(self, object):
-        return mark_safe('</br>'.join([str(o) for o in object.modules.all()]))
-
-    def get_variables(self, object):
-        return mark_safe('</br>'.join([str(o) for o in object.variables.all()]))
-
-    def get_checkpoints(self, object):
-        return mark_safe('</br>'.join([str(o) for o in object.checkpoints.all()]))
-
     def get_keywords(self, object):
         return mark_safe('</br>'.join([str(o) for o in object.keywords.all()]))
 
@@ -88,10 +78,8 @@ class ExecutionAdmin(admin.ModelAdmin):
                                                         args=[object.pk]), 
                                                         execute_button_name)            
 
-        return mark_safe('<div align="center">' + html + '</div>')
+        return mark_safe(html)
 
-    get_modules.short_description = _('Modules')
-    get_checkpoints.short_description = _('Checkpoints')
     get_keywords.short_description = _('Keywords')
     get_action_buttons.short_description = _('Action(s)')
 
