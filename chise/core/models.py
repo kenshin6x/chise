@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.translation import ugettext_lazy as _
 from chise.core import constants
+
 
 class Variable(models.Model):
     name = models.CharField(_('Name'),
@@ -88,6 +90,34 @@ class Script(models.Model):
         return u'%s - %s' % (self.group, self.name)
 
 
+class ModuleScript(models.Model):
+    module = models.ForeignKey('Module',
+                            on_delete=models.CASCADE,
+                            verbose_name=_('Module'),
+                            null=False,
+                            blank=False)
+    script = models.ForeignKey('Script',
+                            on_delete=models.CASCADE,
+                            verbose_name=_('Script'),
+                            null=False,
+                            blank=False)
+    order = models.IntegerField(_('Order'),
+                                unique=True,
+                                validators=[MinValueValidator(1), MaxValueValidator(99)],
+                                null=True,
+                                blank=False)
+
+    class Meta:
+        unique_together = (('module', 'script'),)
+        verbose_name = _('Scripts')
+        verbose_name_plural = _('Scripts')
+        ordering = ['order']
+        db_table = 'core_module_scripts'
+
+    def __str__(self):
+        return u'%s' % self.script
+
+
 class Module(models.Model):
     group = models.ForeignKey('Group',
                             on_delete=models.PROTECT,
@@ -102,6 +132,7 @@ class Module(models.Model):
                                 null=True,
                                 blank=True)
     scripts = models.ManyToManyField('Script',
+                                    through='ModuleScript',
                                     verbose_name=_('Scripts'),
                                     blank=False)
     variables = models.ManyToManyField('Variable',
