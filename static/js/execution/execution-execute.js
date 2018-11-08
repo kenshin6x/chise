@@ -64,14 +64,17 @@ function load_checkpoints(refresh=true) {
                 rows += '<td>'+ row.date_checkpoint +'</td>';
             rows += '</tr>';
 
-            switch(row.object) {
-                case 1:
-                    data['module']['content'][row.status-1]++;
-                    break;
-                case 2:
+            if (row.reference == 2) {
+                switch(row.object) {
+                    case 1:
+                        data['module']['content'][row.status-1]++;
+                        break;
+                    case 2:
                     data['script']['content'][row.status-1]++;
                     break;
+                }
             }
+            
         });
 
         last_length = result.checkpoints.length;
