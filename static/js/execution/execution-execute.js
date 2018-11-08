@@ -19,31 +19,47 @@ $('#open-dialog-chart-button').click(function() {
 
 var interval = null;
 var last_length = 0;
+var first_execution = true;
 
 function runtime_loop(execute_runtime) {
     if (execute_runtime) {
         interval = setInterval(load_checkpoints, 500);
     } else {
-        load_checkpoints(false);
+        load_checkpoints();
     }
 }
 
-function load_checkpoints(refresh=true) {
+function load_checkpoints() {
     $.ajax({
         url: window.location.pathname.replace('execute', 'checkpoints'),
     }).done(function(result){
         var rows = '';
         var row = '';
-        var labels = ['Success', 'Fail'];
         var data = {
+            'progress': {
+                'labels': ['Execution Progress'],
+                'content': [],
+                'type-chart': 'horizontalBar',
+                'extra-options': {
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                min: 0,
+                                max: 100,
+                                callback: function(value, index, values) {
+                                    return value + '%';
+                                },
+                            },
+                        }],
+                    },
+                }
+            },
             'module': {
-                'labels': labels,
-                'content': [0, 0],
-            },
-            'script': {
-                'labels': labels,
-                'content': [0, 0],
-            },
+                'labels': ['Success', 'Fail'],
+                'content': [],
+                'type-chart': 'doughnut',
+                'extra-options': {},
+            }
         };
 
         if (result.checkpoints.length <= last_length && result.status.toLowerCase() != 'finished') {
@@ -62,16 +78,7 @@ function load_checkpoints(refresh=true) {
                 rows += '<td>'+ row.name +'</td>';
                 rows += '<td>'+ (row.description == null ? '-' : row.description) +'</td>';
                 rows += '<td>'+ row.date_checkpoint +'</td>';
-            rows += '</tr>';
-
-            switch(row.object) {
-                case 1:
-                    data['module']['content'][row.status-1]++;
-                    break;
-                case 2:
-                    data['script']['content'][row.status-1]++;
-                    break;
-            }
+            rows += '</tr>';            
         });
 
         last_length = result.checkpoints.length;
@@ -79,49 +86,65 @@ function load_checkpoints(refresh=true) {
         $('#execution-status').html(result.status).attr('class', result.status.toLowerCase());
         $('#checkpoints-table tbody').html(rows);
 
-        render_chart(data);
-
-        if (row.reference == 2) {
-            $('#content-main .object-tools a').fadeIn('slow');
-            $('#date-finished').html(result.date_finished);
-
-            if (row.status == 1) {
-                $('#execution-status').addClass('td-success');    
-            } else if (row.status == 2) {
-                $('#execution-status').addClass('td-fail');
-            }
+        if (row.object == 1 && row.reference == 2 || first_execution) {
+            data['progress']['content'][0] = [(result.report.modules_finished_count/result.report.modules_count)*100];
+            data['module']['content'] = [result.report.modules_finished_success_count, result.report.modules_finished_fail_count];
+            render_chart(data);
+            first_execution = false;
         }
 
+        if (row.reference == 2 && result.date_finished != null) {
+            $('#content-main .object-tools a').fadeIn('slow');
+            $('#date-finished').html(result.date_finished);
+        }
     });
 }
 
-function render_chart(data, type='doughnut'){
+function render_chart(data){
     for(var key in data) {
+        var baseOptions = {
+            legend: {
+                display: false,
+            },
+            title: {
+                display: true,
+                text: key.toUpperCase(),
+                position: 'top'
+            },
+            responsive: true,
+            layout: {
+                padding: {
+                    left: 10,
+                    right: 10,
+                    top: 10,
+                    bottom: 15
+                }
+            }
+        }
+
         var ctx = document.getElementById(key+'-chart');
         var myChart = new Chart(ctx, {
-            type: type,
+            type: data[key]['type-chart'],
             data: {
                 labels: data[key]['labels'],
                 datasets: [{
                     data: data[key]['content'],
                     backgroundColor: [
                         '#69F0AE',
-                        '#EF9A9A',
+                        '#ffcdd2'
                     ],
                     borderWidth: 3
                 }]
             },
-            options: {
-                legend: {
-                    display: false,
-                },
-                title: {
-                    display: true,
-                    text: key.toUpperCase(),
-                    position: 'top'
-                },
-                responsive: true,
-            }
+            options: extend(baseOptions, data[key]['extra-options'])
         });
     }
+}
+
+function extend(obj, src) {
+    for (var key in src) {
+        if (src.hasOwnProperty(key)) obj[key] = src[key];
+    }
+
+    return obj;
 }
