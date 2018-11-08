@@ -99,8 +99,7 @@ class ExecutionAdmin(admin.ModelAdmin):
         form = super().get_form(request, obj, **kwargs)
 
         if obj is not None:
-            if obj.modules.all().count() == 0:
-                form.base_fields['modules'].queryset = core_models.Module.objects.filter(group=obj.site.group)
+            form.base_fields['modules'].queryset = core_models.Module.objects.filter(group=obj.site.group)
 
         return form
 
