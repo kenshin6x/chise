@@ -13,6 +13,7 @@ from django.core import serializers
 from django.shortcuts import render, redirect
 from reportlab.pdfgen import canvas
 from chise.execution.models import *
+from chise.execution.constants import *
 from chise.execution.reports.execution import ExecutionReport
 from chise.core import models as core_models
 from chise.core.tasks import execution_task
@@ -184,12 +185,25 @@ class ExecutionAdmin(admin.ModelAdmin):
                 'date_checkpoint': o.date_checkpoint,
             })
 
+        report = {
+            'modules_count': object.modules.count(),
+            'modules_finished_count': object.checkpoints.filter(object=OBJECT_MODULE,
+                                                            reference=REFERENCE_END).count(),
+            'modules_finished_success_count': object.checkpoints.filter(object=OBJECT_MODULE,
+                                                            reference=REFERENCE_END,
+                                                            status=STATUS_SUCCESS).count(),
+            'modules_finished_fail_count': object.checkpoints.filter(object=OBJECT_MODULE,
+                                                            reference=REFERENCE_END,
+                                                            status=STATUS_FAIL).count(),
+        }
+
         response_data = {
             'id': object.pk,
             'status': object.status(),
             'date_started': object.date_started,
             'date_finished': object.date_finished,
-            'checkpoints' : checkpoints
+            'checkpoints' : checkpoints,
+            'report': report
         }
 
         return JsonResponse(response_data, safe=False)

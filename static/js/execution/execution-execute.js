@@ -10,7 +10,7 @@ $(document).ready(function(){
 
 $('#open-dialog-chart-button').click(function() {
     $('#chart-modal').dialog({
-        title: "Execution Charts",
+        title: "Charts",
         minWidth: 500,
         minHeight: 300,
         position: { my: "center", at: 'right' }
