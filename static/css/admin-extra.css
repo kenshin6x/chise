@@ -78,7 +78,7 @@ div.breadcrumbs, .module caption, .selector-chosen h2, #changelist-filter h2 {
 }
 
 .object-tools .addlink, .object-tools .historylink {
-    margin-left: 2.5px;
+    margin-left: 5px;
 }
 
 .tr-success, ul.messagelist li {

@@ -15,7 +15,7 @@
 <div id="content-main" style="display: none;">
 	<ul class="object-tools">
 		<li>
-			<a href="#" class="historylink" id="open-dialog-chart-button">{% trans 'Open Chart Dialog' %}</a>
+			<a href="#" class="historylink" id="open-dialog-chart-button">{% trans 'Charts' %}</a>
 			<a href="{% url 'admin:execution-print' entry.pk %}" class="historylink" style="display: none;" target="_blank">{% trans 'Print' %}</a>
 			{% if perms.execution.can_reexecute %}
 				<a href="{% url 'admin:execution-reexecute' entry.pk %}" class="historylink" style="display: none;">{% trans 'Re-execute' %}</a>
@@ -54,9 +54,9 @@
 	
 	<table id="checkpoints-table" class="result_list" width="100%">
 		<thead>
-			<th scope="col">{% trans 'Status' %}</th>
 			<th scope="col">{% trans 'Reference' %}</th>
 			<th scope="col">{% trans 'Object' %}</th>
+			<th scope="col">{% trans 'Status' %}</th>
 			<th scope="col">{% trans 'Name' %}</th>
 			<th scope="col">{% trans 'Description' %}</th>
 			<th scope="col">{% trans 'Date Checkpoint' %}</th>
