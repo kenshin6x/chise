@@ -3,7 +3,8 @@
         "name": "chise",
         "debug": true,
         "language": "en",
-        "timezone": "UTC"
+        "timezone": "UTC",
+        "domain": "127.0.0.1"
     },
     "bin": {
         "firefox": "/usr/bin/firefox",
