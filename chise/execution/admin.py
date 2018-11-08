@@ -11,7 +11,6 @@ from django.urls import reverse, resolve
 from django.http import JsonResponse, FileResponse, HttpResponse
 from django.core import serializers
 from django.shortcuts import render, redirect
-from reportlab.pdfgen import canvas
 from chise.execution.models import *
 from chise.execution.constants import *
 from chise.execution.reports.execution import ExecutionReport
@@ -54,8 +53,8 @@ class ExecutionAdmin(admin.ModelAdmin):
                             'keywords',
                             'description')}),
     )
-    autocomplete_fields = ('variables', 
-                        'keywords',)
+    filter_horizontal = ('variables',)
+    autocomplete_fields = ('keywords',)
 
     def get_modules(self, object):
         return mark_safe('</br>'.join([str(o) for o in object.modules.all()]))
@@ -171,7 +170,7 @@ class ExecutionAdmin(admin.ModelAdmin):
         object = Execution.objects.get(pk=object_pk)
         checkpoints = []
 
-        for o in Checkpoint.objects.filter(execution=object).order_by('pk'):
+        for o in object.checkpoints.all().order_by('pk'):
             checkpoints.append({
                 'id' : o.pk,
                 'name' : o.name,

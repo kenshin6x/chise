@@ -36,10 +36,10 @@ h1 {
 }
 
 #header, div.breadcrumbs {
-    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+    box-shadow: 0 2px 4px rgba(0,0,0,.25);
 }
 
-div.breadcrumbs, .module caption, .selector-chosen h2, #changelist-filter h2 {
+div.breadcrumbs, .module caption, .selector-chosen h2, #changelist-filter h2, .inline-group h2 {
     background-color: var(--secondary-color) !important;
 }
 
@@ -60,9 +60,10 @@ div.breadcrumbs, .module caption, .selector-chosen h2, #changelist-filter h2 {
 
 .button.default:active, input[type=submit].default:active,
 .button.default:focus, input[type=submit].default:focus,
-.button.default:hover, input[type=submit].default:hover, {
+.button.default:hover, input[type=submit].default:hover {
     background-color: var(--primary-dark-color);
 }
+
 
 .dashboard #content {
     width: auto !important; 

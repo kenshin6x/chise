@@ -38,9 +38,6 @@
             {% block userlinks %}
 
                 <a href="{% url 'vnc' %}"  onclick="window.open(this.href, 'windowName', 'width=1024, height=768, left=24, top=24, scrollbars, resizable'); return false;" target="_blank">{% trans 'VNC' %}</a> /
-                {% if site_url %}
-                    <a href="{{ site_url }}">{% trans 'View site' %}</a> /
-                {% endif %}
                 {% if user.is_active and user.is_staff %}
                     {% url 'django-admindocs-docroot' as docsroot %}
                     {% if docsroot %}

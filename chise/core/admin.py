@@ -91,6 +91,7 @@ class ScriptsInline(admin.StackedInline):
     extra = 0
     min_num = 1
 
+
 @admin.register(Module)
 class ModuleAdmin(admin.ModelAdmin):
     list_display = ('group',
@@ -108,24 +109,22 @@ class ModuleAdmin(admin.ModelAdmin):
                     'variables__value',
                     'description',)
     list_filter = ('group',)
-    filter_horizontal = ('variables', 
-                        'scripts',)
+    filter_horizontal = ('variables', )
+    inlines = (ScriptsInline,)
     fieldsets = (
             ('', {'fields' : ('group',
                             'name',
                             'description',
-                            'variables',
-                            'scripts')}),
+                            'variables',)}),
     )
 
     def get_variables(self, object):
         return mark_safe('</br>'.join([str(o) for o in object.variables.all()]))
 
-    get_variables.short_description = _('Variables')
-
     def get_scripts(self, object):
         return mark_safe('</br>'.join([o.name for o in object.scripts.all()]))
 
+    get_variables.short_description = _('Variables')
     get_scripts.short_description = _('Scripts')
 
     def get_form(self, request, obj=None, **kwargs):
