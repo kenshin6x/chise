@@ -11,6 +11,10 @@ from furl import furl
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+from selenium.common.exceptions import TimeoutException
 from datetime import datetime
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
@@ -36,6 +40,7 @@ class ExecutionBackend:
     driver = None
     action = None
     html = None
+    delay = 3
 
     execution = None
     last_module = None
@@ -139,15 +144,18 @@ class ExecutionBackend:
 
         self.execution.checkpoints.add(checkpoint)
 
-    def find_element_by_xpath(self, xpath):
-        element = self.driver.find_element_by_xpath(xpath)
-        self.action.move_to_element(element).perform()
-        return element
+    def find_element_by_xpath(self, xpath, delay = None):
+        if delay is None:
+            delay = self.delay
+            
+        element = WebDriverWait(self.driver, delay).until(EC.presence_of_element_located((By.XPATH, xpath)))
+        
+        try:
+            self.action.move_to_element(element).perform()
+        except:
+            pass
 
-    def find_elements_by_xpath(self, xpath):
-        elements = self.driver.find_elements_by_xpath(xpath)
-        self.action.move_to_element(element).perform()
-        return elements
+        return element
 
     def run(self, *args, **kwargs):
         try:
