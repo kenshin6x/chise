@@ -139,6 +139,16 @@ class ExecutionBackend:
 
         self.execution.checkpoints.add(checkpoint)
 
+    def find_element_by_xpath(self, xpath):
+        element = self.driver.find_element_by_xpath(xpath)
+        self.action.move_to_element(element).perform()
+        return element
+
+    def find_elements_by_xpath(self, xpath):
+        elements = self.driver.find_elements_by_xpath(xpath)
+        self.action.move_to_element(element).perform()
+        return elements
+
     def run(self, *args, **kwargs):
         try:
             try:
