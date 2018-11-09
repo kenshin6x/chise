@@ -163,6 +163,10 @@ class ExecutionBackend:
 
                             self.driver.get(self.get_url())
                             self.html = self.parse_html(self.driver.page_source)
+
+                            for util in self.last_script.utils.all():
+                                exec(util.code)
+
                             exec(self.last_script.code)
 
                             self.add_checkpoint(self.last_script.name,

@@ -49,6 +49,26 @@ class VariableAdmin(admin.ModelAdmin):
     list_filter = ('request_method',)
 
 
+@admin.register(Util)
+class UtilAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    list_display_links = ('name',)
+    search_fields = ('description',
+                    'name',)
+
+    class Media:
+        js = (
+            settings.STATIC_URL  + 'codemirror/lib/codemirror.js',
+            settings.STATIC_URL  + 'codemirror/mode/python/python.js',
+            settings.STATIC_URL  + 'codemirror/addon/hint/show-hint.js',
+            settings.STATIC_URL  + 'js/codemirror-init.js',
+        )
+        css = {'all': (
+                settings.STATIC_URL  + 'codemirror/lib/codemirror.css',
+                settings.STATIC_URL  + 'codemirror/theme/monokai.css',
+            )
+        }
+
 @admin.register(Script)
 class ScriptAdmin(admin.ModelAdmin):
     list_display = ('group', 
@@ -65,7 +85,7 @@ class ScriptAdmin(admin.ModelAdmin):
                     'variables__value',
                     'description',)
     list_filter = ('group__name',)
-    filter_horizontal = ('variables',)
+    filter_horizontal = ('variables', 'utils',)
 
     def get_variables(self, object):
         return mark_safe('</br>'.join([str(o) for o in object.variables.all()]))
@@ -145,7 +165,7 @@ class ModuleAdmin(admin.ModelAdmin):
             self.inlines = (ScriptsInline, )
         else:
             self.inlines = ()
-            
+
         return fields
 
     class Media:

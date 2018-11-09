@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-08 18:58+0000\n"
-"PO-Revision-Date: 2018-11-08 19:03+0000\n"
+"POT-Creation-Date: 2018-11-09 15:32+0000\n"
+"PO-Revision-Date: 2018-11-09 15:33+0000\n"
 "Last-Translator: b'  <seisxis@gmail.com>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -19,14 +19,15 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Translated-Using: django-rosetta 0.9.0\n"
 
-#: chise/core/admin.py:33 chise/core/admin.py:73 chise/core/admin.py:127
-#: chise/core/admin.py:190 chise/core/models.py:28 chise/core/models.py:49
-#: chise/core/models.py:76 chise/core/models.py:108 chise/core/models.py:135
-#: chise/execution/models.py:79
+#: chise/core/admin.py:33 chise/core/admin.py:93 chise/core/admin.py:157
+#: chise/core/admin.py:202 chise/core/models.py:30 chise/core/models.py:51
+#: chise/core/models.py:99 chise/core/models.py:162 chise/core/models.py:189
+#: chise/execution/models.py:80
 msgid "Variables"
 msgstr "Variáveis"
 
-#: chise/core/admin.py:128 chise/core/models.py:84 chise/core/models.py:105
+#: chise/core/admin.py:158 chise/core/models.py:110 chise/core/models.py:136
+#: chise/core/models.py:137 chise/core/models.py:159
 msgid "Scripts"
 msgstr "Scripts"
 
@@ -55,99 +56,113 @@ msgstr "POST"
 msgid "PARAM"
 msgstr "PARAM"
 
-#: chise/core/models.py:8 chise/core/models.py:43 chise/core/models.py:67
-#: chise/core/models.py:97 chise/core/models.py:127
+#: chise/core/models.py:10 chise/core/models.py:45 chise/core/models.py:64
+#: chise/core/models.py:90 chise/core/models.py:150 chise/core/models.py:181
 #: chise/execution/models.py:10 chise/execution/models.py:27
 #: chise/execution/reports/execution.py:41
 #: templates/admin/execution/execute_action.html:60
 msgid "Name"
 msgstr "Nome"
 
-#: chise/core/models.py:12
+#: chise/core/models.py:14
 msgid "Value"
 msgstr "Valor"
 
-#: chise/core/models.py:16
+#: chise/core/models.py:18
 msgid "Method"
 msgstr "Método"
 
-#: chise/core/models.py:21 chise/core/models.py:101
-#: chise/execution/models.py:43 chise/execution/models.py:69
+#: chise/core/models.py:23 chise/core/models.py:68 chise/core/models.py:154
+#: chise/execution/models.py:43 chise/execution/models.py:70
 #: chise/execution/reports/execution.py:42
 #: templates/admin/execution/execute_action.html:61
 msgid "Description"
 msgstr "Descrição"
 
-#: chise/core/models.py:27
+#: chise/core/models.py:29
 msgid "Variable"
 msgstr "Variável"
 
-#: chise/core/models.py:53 chise/core/models.py:64 chise/core/models.py:94
-#: chise/core/models.py:123
+#: chise/core/models.py:55 chise/core/models.py:87 chise/core/models.py:147
+#: chise/core/models.py:177
 msgid "Group"
 msgstr "Grupo"
 
-#: chise/core/models.py:54
+#: chise/core/models.py:56
 msgid "Groups"
 msgstr "Grupos"
 
-#: chise/core/models.py:71
-msgid "URL Sufix"
-msgstr "URL Sufixo"
-
-#: chise/core/models.py:78
+#: chise/core/models.py:71 chise/core/models.py:104
 msgid "Code"
 msgstr "Código"
 
-#: chise/core/models.py:83
+#: chise/core/models.py:76
+msgid "Util"
+msgstr "Útil"
+
+#: chise/core/models.py:77 chise/core/models.py:102
+msgid "Utils"
+msgstr "Úteis"
+
+#: chise/core/models.py:94
+msgid "URL Sufix"
+msgstr "URL Sufixo"
+
+#: chise/core/models.py:109 chise/core/models.py:125
 msgid "Script"
 msgstr "Script"
 
-#: chise/core/models.py:113 chise/core/models.py:114
+#: chise/core/models.py:120 chise/core/models.py:167 chise/core/models.py:168
 msgid "Module"
 msgstr "Módulo"
 
-#: chise/core/models.py:131
+#: chise/core/models.py:128
+#: env/lib/python3.5/site-packages/django/forms/formsets.py:371
+#: env/lib/python3.5/site-packages/django/forms/formsets.py:373
+msgid "Order"
+msgstr ""
+
+#: chise/core/models.py:185
 msgid "URL Base"
 msgstr "URL"
 
-#: chise/core/models.py:140 chise/execution/models.py:64
+#: chise/core/models.py:194 chise/execution/models.py:64
 msgid "Site"
 msgstr "Site"
 
-#: chise/core/models.py:141
+#: chise/core/models.py:195
 msgid "Sites"
 msgstr "Sites"
 
-#: chise/execution/admin.py:53
+#: chise/execution/admin.py:52
 msgid "Extra"
 msgstr "Extra"
 
-#: chise/execution/admin.py:69
+#: chise/execution/admin.py:68
 msgid "Execute"
 msgstr "Executar"
 
-#: chise/execution/admin.py:72 chise/execution/models.py:137
+#: chise/execution/admin.py:71 chise/execution/models.py:138
 msgid "Running"
 msgstr "Rodando"
 
-#: chise/execution/admin.py:75 templates/admin/edit_inline/stacked.html:12
+#: chise/execution/admin.py:74 templates/admin/edit_inline/stacked.html:12
 #: templates/admin/edit_inline/tabular.html:34 templates/admin/index.html:38
 #: templates/admin/related_widget_wrapper.html:15
 msgid "View"
 msgstr "Ver"
 
-#: chise/execution/admin.py:83 chise/execution/models.py:18
-#: chise/execution/models.py:73
+#: chise/execution/admin.py:82 chise/execution/models.py:18
+#: chise/execution/models.py:74
 msgid "Keywords"
 msgstr "Palavras-Chave"
 
-#: chise/execution/admin.py:84
+#: chise/execution/admin.py:83
 msgid "Action(s)"
 msgstr "Ação(es)"
 
-#: chise/execution/admin.py:152 chise/execution/apps.py:7
-#: chise/execution/models.py:100 chise/execution/models.py:101
+#: chise/execution/admin.py:149 chise/execution/apps.py:7
+#: chise/execution/models.py:101 chise/execution/models.py:102
 #: templates/admin/execution/execute_action.html:11
 msgid "Execution"
 msgstr "Execução"
@@ -213,7 +228,7 @@ msgstr "Data Checkpoint"
 msgid "Checkpoint"
 msgstr "Checkpoint"
 
-#: chise/execution/models.py:53 chise/execution/models.py:76
+#: chise/execution/models.py:53 chise/execution/models.py:77
 msgid "Checkpoints"
 msgstr "Checkpoints"
 
@@ -221,37 +236,37 @@ msgstr "Checkpoints"
 msgid "Modules"
 msgstr "Módulos"
 
-#: chise/execution/models.py:83
+#: chise/execution/models.py:84
 msgid "User Created"
 msgstr "Usuário Criação"
 
-#: chise/execution/models.py:86
+#: chise/execution/models.py:87
 msgid "Date Created"
 msgstr "Data Criação"
 
-#: chise/execution/models.py:90
+#: chise/execution/models.py:91
 #: templates/admin/execution/execute_action.html:29
 msgid "Date Started"
 msgstr "Data Iniciado"
 
-#: chise/execution/models.py:94
+#: chise/execution/models.py:95
 #: templates/admin/execution/execute_action.html:33
 msgid "Date Finished"
 msgstr "Data Finalizado"
 
-#: chise/execution/models.py:104
+#: chise/execution/models.py:105
 msgid "Can execute execution"
 msgstr "Pode executar execução"
 
-#: chise/execution/models.py:105
+#: chise/execution/models.py:106
 msgid "Can re-execute execution"
 msgstr "Pode re-executar execução"
 
-#: chise/execution/models.py:135
+#: chise/execution/models.py:136
 msgid "Finished"
 msgstr "Finalizado"
 
-#: chise/execution/models.py:139
+#: chise/execution/models.py:140
 msgid "Waiting"
 msgstr "Aguardando"
 
@@ -796,11 +811,6 @@ msgid "Please submit %d or more forms."
 msgid_plural "Please submit %d or more forms."
 msgstr[0] ""
 msgstr[1] ""
-
-#: env/lib/python3.5/site-packages/django/forms/formsets.py:371
-#: env/lib/python3.5/site-packages/django/forms/formsets.py:373
-msgid "Order"
-msgstr ""
 
 #: env/lib/python3.5/site-packages/django/forms/formsets.py:375
 #: templates/admin/delete_confirmation.html:18
@@ -1622,7 +1632,7 @@ msgstr ""
 
 #: templates/admin/500.html:6 templates/admin/app_index.html:9
 #: templates/admin/auth/user/change_password.html:13
-#: templates/admin/base.html:69 templates/admin/change_form.html:18
+#: templates/admin/base.html:61 templates/admin/change_form.html:18
 #: templates/admin/change_list.html:31
 #: templates/admin/delete_confirmation.html:14
 #: templates/admin/delete_selected_confirmation.html:14
@@ -1689,7 +1699,7 @@ msgstr ""
 
 #: templates/admin/auth/user/change_password.html:17
 #: templates/admin/auth/user/change_password.html:55
-#: templates/admin/base.html:57
+#: templates/admin/base.html:49
 #: templates/registration/password_change_done.html:3
 #: templates/registration/password_change_form.html:4
 msgid "Change password"
@@ -1718,17 +1728,17 @@ msgstr ""
 msgid "Welcome,"
 msgstr ""
 
-#: templates/admin/base.html:49
+#: templates/admin/base.html:41
 msgid "VNC"
 msgstr ""
 
-#: templates/admin/base.html:53
+#: templates/admin/base.html:45
 #: templates/registration/password_change_done.html:3
 #: templates/registration/password_change_form.html:4
 msgid "Documentation"
 msgstr ""
 
-#: templates/admin/base.html:59
+#: templates/admin/base.html:51
 #: templates/registration/password_change_done.html:3
 #: templates/registration/password_change_form.html:4
 msgid "Log out"

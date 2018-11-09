@@ -60,6 +60,27 @@ class Group(models.Model):
         return u'%s' % self.name
 
 
+class Util(models.Model):
+    name = models.CharField(_('Name'),
+                            max_length=255,
+                            null=False,
+                            blank=False)
+    description = models.TextField(_('Description'),
+                                null=True,
+                                blank=True)
+    code = models.TextField(_('Code'),
+                            null=False,
+                            blank=False)
+
+    class Meta:
+        verbose_name = _('Util')
+        verbose_name_plural = _('Utils')
+        ordering = ['name']
+
+    def __str__(self):
+        return u'%s' % self.name
+
+
 class Script(models.Model):
     group = models.ForeignKey('Group',
                             on_delete=models.PROTECT,
@@ -77,6 +98,9 @@ class Script(models.Model):
     variables = models.ManyToManyField('Variable',
                                     verbose_name=_('Variables'),
                                     blank=True)
+    utils = models.ManyToManyField('Util',
+                                verbose_name=_('Utils'),
+                                blank=True)
     code = models.TextField(_('Code'),
                             null=True,
                             blank=True)
