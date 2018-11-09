@@ -153,7 +153,7 @@ class ExecutionBackend:
                                                     executable_path=settings.GECKODRIVER_BIN,
                                                     firefox_binary=settings.FIREFOX_BIN)
                     try:
-                        for script in self.last_module.scripts.all():
+                        for script in core_models.ModuleScript.objects.filter(module=self.last_module):
                             self.last_script = script
                             self.last_script_has_error = False
                             self.add_checkpoint(self.last_script.name,
