@@ -1,5 +1,4 @@
-#!pythonfrom django.urls import reverse
-
+#!python
 # -*- coding: utf-8 -*-
 
 import os
@@ -28,14 +27,14 @@ from chise.execution.constants import *
 class ExecutionException(Exception):
     pass
 
-
-class VariableNotFoundException(Exception):
+class NoSuchVariableException(Exception):
     pass
 
 
 class ExecutionBackend:
     profile = None
     driver = None
+    action = None
     html = None
 
     execution = None
@@ -113,7 +112,7 @@ class ExecutionBackend:
         if variables.get(name):
             return variables.get(name)
         else:
-            raise VariableNotFoundException (name)
+            raise NoSuchVariableException (name)
 
     def get_url_base(self):
         return self.execution.site.url_base
@@ -153,6 +152,8 @@ class ExecutionBackend:
                     self.driver = webdriver.Firefox(self.profile,
                                                     executable_path=settings.GECKODRIVER_BIN,
                                                     firefox_binary=settings.FIREFOX_BIN)
+                    self.action = ActionChains(self.driver)
+
                     try:
                         for script in core_models.ModuleScript.objects.filter(module=self.last_module):
                             self.last_script = script.script
