@@ -10,7 +10,7 @@ $(document).ready(function(){
 
 $('#open-dialog-chart-button').click(function() {
     $('#chart-modal').dialog({
-        title: "Charts",
+        title: $("#open-dialog-chart-button").text(),
         minWidth: 500,
         minHeight: 300,
         position: { my: "center", at: 'right' }
@@ -55,16 +55,16 @@ function load_checkpoints() {
                 }
             },
             'module': {
-                'labels': ['SUCCESS', 'FAIL'],
+                'labels': [$("#open-dialog-chart-button").data('success-label'), $("#open-dialog-chart-button").data('fail-label')],
                 'content': [],
                 'type-chart': 'doughnut',
                 'extra-options': {},
             }
         };
 
-        if (result.checkpoints.length <= last_length && result.status.toLowerCase() != 'finished') {
+        if (result.checkpoints.length <= last_length && result.date_finished == null) {
             return false;
-        } else if (result.status.toLowerCase() == 'finished') {
+        } else if (result.date_finished != null) {
             clearInterval(interval);
         }
 

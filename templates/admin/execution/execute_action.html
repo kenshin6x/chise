@@ -15,7 +15,7 @@
 <div id="content-main" style="display: none;">
 	<ul class="object-tools">
 		<li>
-			<a href="#" class="historylink" id="open-dialog-chart-button">{% trans 'Charts' %}</a>
+			<a href="#" class="historylink" id="open-dialog-chart-button" data-success-label="{% trans 'SUCCESS' %}" data-fail-label="{% trans 'FAIL' %}">{% trans 'Charts' %}</a>
 			<a href="{% url 'admin:execution-print' entry.pk %}" class="historylink" style="display: none;" target="_blank">{% trans 'Print' %}</a>
 			{% if perms.execution.can_reexecute %}
 				<a href="{% url 'admin:execution-reexecute' entry.pk %}" class="historylink" style="display: none;">{% trans 'Re-execute' %}</a>

@@ -199,8 +199,8 @@ class ExecutionAdmin(admin.ModelAdmin):
                                                             status=STATUS_FAIL).count(),
         }
 
-        date_started = ''
-        date_finished = ''
+        date_started = None
+        date_finished = None
 
         if object.date_started:
             date_started = formats.date_format(object.date_started, "DATETIME_FORMAT")
