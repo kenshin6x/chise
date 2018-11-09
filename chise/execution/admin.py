@@ -45,7 +45,7 @@ class ExecutionAdmin(admin.ModelAdmin):
                 'date_started',
                 'date_finished',)
     fieldsets = (
-            (None, {'fields' : ('site',
+            ('', {'fields' : ('site',
                             'modules',
                             'variables',
                             )}),

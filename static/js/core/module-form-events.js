@@ -3,11 +3,11 @@ if (!$) {
 }
 
 $( document ).ready(function() {
-    var id_form = "#execution_form";
-    var id_site = "#id_site";
+    var id_form = "#module_form";
+    var id_group = "#id_group";
 
     if ($(id_form).length) {
-        $(id_site).change(function() {
+        $(id_group).change(function() {
             $('input[name="_continue"').click();
         });
     }

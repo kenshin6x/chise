@@ -91,6 +91,17 @@ class ScriptsInline(admin.StackedInline):
     extra = 0
     min_num = 1
 
+    def get_formset(self, request, object=None, **kwargs):
+        self.parent_object = object
+        return super().get_formset(request, object, **kwargs)
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if self.parent_object is not None:
+            qs = Script.objects.filter(group=self.parent_object.group)
+            kwargs['queryset'] = qs
+
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
 
 @admin.register(Module)
 class ModuleAdmin(admin.ModelAdmin):
@@ -110,10 +121,9 @@ class ModuleAdmin(admin.ModelAdmin):
                     'description',)
     list_filter = ('group',)
     filter_horizontal = ('variables', )
-    inlines = (ScriptsInline,)
     fieldsets = (
-            ('', {'fields' : ('group',
-                            'name',
+            ('', {'fields' : ('name',
+                            'group',
                             'description',
                             'variables',)}),
     )
@@ -127,42 +137,24 @@ class ModuleAdmin(admin.ModelAdmin):
     get_variables.short_description = _('Variables')
     get_scripts.short_description = _('Scripts')
 
-    def get_form(self, request, obj=None, **kwargs):
-        form = super().get_form(request, obj, **kwargs)
+    def get_readonly_fields(self, request, obj=None):
+        fields = []
+        
+        if obj is not None:
+            fields.append('group')
+            self.inlines = (ScriptsInline, )
+        else:
+            self.inlines = ()
+            
+        return fields
 
-        if request.GET.get('site_id'):
-            site = Site.objects.get(pk=request.GET.get('site_id'))
-            form.base_fields['group'].queryset = Group.objects.filter(pk=site.group.pk)
-
-        return form
-
-    def get_urls(self):
-        urls = super().get_urls()
-        custom_urls = [
-                url(r'^site/(?P<site_pk>.+)/list/$',
-                    self.admin_site.admin_view(self.list_by_site_view),
-                    name='execution-list-by-site',),
-
-                url(r'^group/(?P<group_pk>.+)/list/$',
-                    self.admin_site.admin_view(self.list_by_group_view),
-                    name='execution-list-by-group',),
-        ]
-
-        return custom_urls + urls
-
-    def list_by_site_view(self, request, site_pk, *args, **kwargs):
-        group = Group.objects.get(site__pk=site_pk)
-        return self.list_by_group_view(request, group.pk, args, kwargs);
-
-    def list_by_group_view(self, request, group_pk, *args, **kwargs):
-        response_data = []
-        for o in self.model.objects.filter(group=group_pk):
-            response_data.append({
-                'pk' : o.pk,
-                'str': str(o),
-            })
-
-        return JsonResponse(response_data, safe=False)
+    class Media:
+        js = (
+            settings.STATIC_URL  + 'js/core/module-form-events.js',
+        )
+        css = {'all': (
+            )
+        }
 
 
 @admin.register(Site)
