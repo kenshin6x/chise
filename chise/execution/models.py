@@ -65,7 +65,8 @@ class Execution(models.Model):
                             blank=False,
                             null=True)
     modules = models.ManyToManyField(core_models.Module,
-                                verbose_name=_('Modules'))
+                                verbose_name=_('Modules'),
+                                blank=True)
     description = models.TextField(_('Description'),
                                 null=True,
                                 blank=True)

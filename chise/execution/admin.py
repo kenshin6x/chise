@@ -93,9 +93,7 @@ class ExecutionAdmin(admin.ModelAdmin):
     def get_readonly_fields(self, request, obj=None):
         fields = []
         
-        if obj is not None:
-            fields.append('site')
-        else:
+        if obj is None:
             fields.append('modules')
             fields.append('variables')
         
@@ -214,6 +212,7 @@ class ExecutionAdmin(admin.ModelAdmin):
 
     class Media:
         js = (
+            settings.STATIC_URL  + 'js/execution/execution-form-events.js',
             settings.STATIC_URL  + 'js/chart.min.js',
             settings.STATIC_URL  + 'js/jquery-ui-1.12.1.custom/jquery-ui.min.js',
         )
