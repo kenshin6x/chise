@@ -154,7 +154,7 @@ class ExecutionBackend:
                                                     firefox_binary=settings.FIREFOX_BIN)
                     try:
                         for script in core_models.ModuleScript.objects.filter(module=self.last_module):
-                            self.last_script = script
+                            self.last_script = script.script
                             self.last_script_has_error = False
                             self.add_checkpoint(self.last_script.name,
                                                 OBJECT_SCRIPT,
@@ -164,10 +164,12 @@ class ExecutionBackend:
                             self.driver.get(self.get_url())
                             self.html = self.parse_html(self.driver.page_source)
 
+                            code = ''
                             for util in self.last_script.utils.all():
-                                exec(util.code)
+                                code += util.code + '\n'
 
-                            exec(self.last_script.code)
+                            code += '\n' + self.last_script.code
+                            exec(code)
 
                             self.add_checkpoint(self.last_script.name,
                                                 OBJECT_SCRIPT,
