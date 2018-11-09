@@ -130,6 +130,7 @@ class ExecutionBackend:
 
     def add_checkpoint(self, name, object, reference, status, description=None):
         checkpoint = execution_models.Checkpoint()
+        checkpoint.date_checkpoint = datetime.now()
         checkpoint.name = name.upper()
         checkpoint.reference = reference
         checkpoint.object = object

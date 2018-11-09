@@ -184,7 +184,7 @@ class ExecutionAdmin(admin.ModelAdmin):
                 'reference': o.reference,
                 'reference_display': o.get_reference_display(),
                 'description': o.description,
-                'date_checkpoint': o.date_checkpoint,
+                'date_checkpoint': formats.date_format(o.date_checkpoint, "DATETIME_FORMAT"),
             })
 
         report = {
@@ -199,11 +199,20 @@ class ExecutionAdmin(admin.ModelAdmin):
                                                             status=STATUS_FAIL).count(),
         }
 
+        date_started = ''
+        date_finished = ''
+
+        if object.date_started:
+            date_started = formats.date_format(object.date_started, "DATETIME_FORMAT")
+        
+        if object.date_finished:
+            date_finished = formats.date_format(object.date_finished, "DATETIME_FORMAT")
+
         response_data = {
             'id': object.pk,
             'status': object.status(),
-            'date_started': object.date_started,
-            'date_finished': object.date_finished,
+            'date_started': date_started,
+            'date_finished': date_finished,
             'checkpoints' : checkpoints,
             'report': report
         }

@@ -88,11 +88,12 @@
     {% block footer %}
         <div id="footer">
             <div>
-                <a href="{{ request|switch_i18n:'en' }}">
-                    <img src="{% static 'images/flags/united-states-of-america.png' %}">
-                </a>
                 <a href="{{ request|switch_i18n:'pt-br' }}">
                     <img src="{% static '/images/flags/brazil.png' %}">
+                </a>
+
+                <a href="{{ request|switch_i18n:'en' }}">
+                    <img src="{% static 'images/flags/united-states-of-america.png' %}">
                 </a>
             </div>
         </div>

@@ -2,6 +2,7 @@
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import formats
 from django.utils.translation import ugettext_lazy as _
 from chise.execution import constants
 from chise.core import models as core_models
@@ -44,7 +45,7 @@ class Checkpoint(models.Model):
                                 null=True,
                                 blank=True)
     date_checkpoint = models.DateTimeField(_('Date Checkpoint'),
-                                        auto_now_add=True,
+                                        auto_now_add=False,
                                         null=False,
                                         blank=False)
 
@@ -89,13 +90,13 @@ class Execution(models.Model):
                                         null=False,
                                         blank=False)
     date_started = models.DateTimeField(_('Date Started'),
-                                                auto_now_add=False,
-                                                null=True,
-                                                blank=False)
+                                        auto_now_add=False,
+                                        null=True,
+                                        blank=False)
     date_finished = models.DateTimeField(_('Date Finished'),
-                                                    auto_now_add=False,
-                                                    null=True,
-                                                    blank=False)
+                                        auto_now_add=False,
+                                        null=True,
+                                        blank=False)
 
     class Meta:
         verbose_name = _('Execution')
