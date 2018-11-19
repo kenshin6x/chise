@@ -6,6 +6,9 @@
         "timezone": "UTC",
         "domain": "127.0.0.1"
     },
+    "novnc": {
+        "port": "6080"
+    },
     "bin": {
         "firefox": "/usr/bin/firefox",
         "geckodriver": "bin/geckodriver"

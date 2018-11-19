@@ -8,6 +8,6 @@ class VNCView(generic.RedirectView):
 
     def get_redirect_url(self, *args, **kwargs):
         scheme = 'https' if self.request.is_secure() else 'http'        
-        self.url = scheme + '://' + settings.DOMAIN + ':6080/vnc_lite.html'
+        self.url = scheme + '://' + settings.DOMAIN + ':' + settings.NOVNC_PORT + ':/vnc_lite.html'
 
         return super().get_redirect_url(self, *args, **kwargs)
