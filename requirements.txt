@@ -20,7 +20,7 @@ polib==1.1.0
 psycopg2-binary==2.7.5
 Pypubsub==4.0.0
 pytz==2018.7
-reportlab==3.5.9
+reportlab==3.5.55
 requests==2.20.0
 selenium==3.14.1
 six==1.11.0
